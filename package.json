@@ -36,6 +36,7 @@
     "@fontsource/inter": "^5.0.17",
     "bits-ui": "^0.21.2",
     "clsx": "^2.1.0",
+    "feature-sliced-svelte": "^1.4.0",
     "tailwind-merge": "^2.2.2"
   }
 }

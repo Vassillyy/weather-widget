@@ -1,7 +1,8 @@
 <script lang="ts">
+  import {fsd} from 'feature-sliced-svelte'
 </script>
 
-<div class="page-container" style="background-color: red">
+<div use:fsd={'shared/PageContainer'} class="page-container" style="background-color: red">
   <slot />
 </div>
 

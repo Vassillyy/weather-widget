@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
   import {Header} from '@/widgets/header'
+  import {PageContainer} from '@/shared/ui'
+  import '../global.css'
 </script>
 
-<div class="app">
+<PageContainer>
   <Header />
   <slot />
-</div>
+</PageContainer>

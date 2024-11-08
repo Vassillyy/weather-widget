@@ -1,7 +1,4 @@
-<script>
-  import {PageContainer} from '@/shared/ui'
+<script lang="ts">
 </script>
 
-<PageContainer>
-  <div>11111111111111</div>
-</PageContainer>
+<div>11111111111111</div>

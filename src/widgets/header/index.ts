@@ -1,1 +1,1 @@
-export {default as Header} from './ui/header.svelte'
+export {default as Header} from './ui/Header.svelte'
