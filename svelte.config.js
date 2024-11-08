@@ -7,7 +7,7 @@ const config = {
   kit: {
     adapter: adapter(),
     files: {
-      routes: 'src/app',
+      routes: 'src/app/route',
       lib: 'src',
       appTemplate: 'src/app/index.html',
       assets: 'public'
