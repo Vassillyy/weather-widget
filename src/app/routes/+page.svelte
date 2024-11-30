@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {WeatherBasicInfo} from '@/pages/weatherBasicInfo'
+  import {ForecastData} from '@/pages/forecastData'
 </script>
 
-<WeatherBasicInfo />
+<ForecastData />

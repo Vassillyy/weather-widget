@@ -1,5 +1,4 @@
 <script lang="ts">
-  import {gradientColor} from '@/shared/lib'
   import tippy, {type Placement} from 'tippy.js'
   import 'tippy.js/dist/tippy.css'
 

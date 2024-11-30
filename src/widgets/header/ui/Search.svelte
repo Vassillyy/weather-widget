@@ -55,8 +55,9 @@
       type="text"
       class="search__input"
       class:search__input_active={isActive}
+      placeholder={showPlaceholder ? 'Введите город' : ''}
       style="border-color: {colorBorder}; color: {colorText}"
-      transition:fly={{x: 250, duration: 600}}
+      transition:fly={{x: 15, duration: 600}}
       onintrostart={() => {
         showPlaceholder = false
         disabledButton = true
@@ -77,11 +78,6 @@
       bind:this={inputElement}
     />
   {/if}
-  {#if showPlaceholder && !inputValue}
-    <span class="search__placeholder" style="color: {colorText}"
-      >Введите город</span
-    >
-  {/if}
   <div class="search__button">
     <Button disabled={disabledButton} onclick={clickAction}>
       {#snippet icon()}
@@ -93,12 +89,11 @@
 
 <style lang="sass">
   .search
+    box-sizing: border-box
     position: relative
     display: flex
     justify-content: flex-end
     align-items: center
-    width: 250px
-    overflow: hidden
     &__input
       position: absolute
       right: 0
@@ -107,24 +102,24 @@
       border-width: 3px
       border-style: solid
       padding: 0
-      width: 60px
       height: 60px
-      transition: width 0.3s ease
       background-color: transparent
       &:focus
         outline: none
       &_active
         font-size: 25px
         border-radius: 20px
-        width: 100%
-        padding: 6px 70px 6px 15px
+        width: 250px
+        padding-right: 70px
+        padding-left: 15px
     &__button
       z-index: 2
-    &__placeholder
-      position: absolute
-      left: 0
-      padding-left: 20px
-      font-size: 20px
-      font-weight: 500
-      letter-spacing: 1px
+
+  @media (max-width: 760px)
+    .search
+      &__input
+        font-size: 18px
+        height: 50px
+        &_active
+          width: 200px
 </style>

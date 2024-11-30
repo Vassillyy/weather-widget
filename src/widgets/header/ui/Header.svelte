@@ -16,21 +16,16 @@
 
     <Button onclick={changeTempUnit} color={$gradientColor}>
       {#snippet icon()}
-        {#if $tempUnit === '°C'}
-          <Icon name="celsius" />
-        {:else}
-          <Icon name="fahrenheit" />
-        {/if}
+        {@const name = $tempUnit === '°C' ? 'celsius' : 'fahrenheit'}
+        <Icon {name} />
       {/snippet}
     </Button>
 
     <Button onclick={changeColors}>
       {#snippet icon()}
-        {#if $gradientColor === colors.GRADIENT_VIOLET}
-          <Icon name="night" />
-        {:else}
-          <Icon name="day" />
-        {/if}
+        {@const name =
+          $gradientColor === colors.GRADIENT_VIOLET ? 'night' : 'day'}
+        <Icon {name} />
       {/snippet}
     </Button>
 
@@ -43,8 +38,17 @@
     display: flex
     justify-content: space-between
     align-items: center
+    padding-top: 15px
+    margin-bottom: 20px
     &__block-settings
       display: flex
       align-items: center
-      gap: 40px
+      gap: 35px
+
+  @media (max-width: 1000px)
+    .header__block-settings
+      width: 110px
+      flex-wrap: wrap
+      justify-content: space-between
+      gap: 10px
 </style>

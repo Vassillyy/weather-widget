@@ -75,4 +75,14 @@
       height: 40px
     &__label
       font-size: 20px
+
+  @media (max-width: 760px)
+    .select-language
+      &__list-items
+        gap: 5px
+      &__icon
+        width: 30px
+        height: 30px
+      &__label
+        font-size: 18px
 </style>
