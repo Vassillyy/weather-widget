@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
   import tippy, {type Placement} from 'tippy.js'
   import 'tippy.js/dist/tippy.css'
 
@@ -22,7 +23,7 @@
   let tipElement: any = $state()
   let instance: any = $state()
 
-  $effect(() => {
+  onMount(() => {
     if (tooltipElement) {
       instance = tippy(tooltipElement, {
         content: tipElement,

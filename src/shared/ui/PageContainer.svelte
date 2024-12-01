@@ -1,16 +1,14 @@
 <script lang="ts">
-  import {backgroundColor} from '@/shared/lib'
-
   let {children}: {children: any} = $props()
 </script>
 
-<div class="page-container" style="background-color: {$backgroundColor}">
+<div class="page-container">
   {@render children()}
 </div>
 
 <style lang="sass">
   .page-container
-    transition: background-color 0.5s ease-in-out
+    background-color: transparent
     --horizontal-offset: 30px
     margin: 0 auto
     padding-bottom: 30px

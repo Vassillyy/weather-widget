@@ -8,4 +8,8 @@
 :root {
   --light-gray: rgb(170, 170, 170);
   --white: rgb(255, 255, 255);
+  --black: rgb(0, 0, 0);
+  --dark-blue: rgb(53, 53, 137);
+  --light-red: rgb(255, 102, 102);
+  --white-transparent: rgba(255, 255, 255, 0.2);
 }
