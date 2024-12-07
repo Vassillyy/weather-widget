@@ -1,6 +1,7 @@
 <script lang="ts">
   import {onMount} from 'svelte'
-  import tippy, {type Placement} from 'tippy.js'
+  import tippy from 'tippy.js'
+  import type {Instance, Placement} from 'tippy.js'
   import 'tippy.js/dist/tippy.css'
 
   type Props = {
@@ -19,9 +20,9 @@
     placement = 'bottom'
   }: Props = $props()
 
-  let tooltipElement: any = $state()
-  let tipElement: any = $state()
-  let instance: any = $state()
+  let tooltipElement: HTMLElement | undefined = $state()
+  let tipElement: HTMLElement | undefined = $state()
+  let instance: Instance | undefined = $state()
 
   onMount(() => {
     if (tooltipElement) {
@@ -46,13 +47,15 @@
 <div class="tooltip" bind:this={tooltipElement}>
   {@render children()}
   {#if tip}
-    <!--    a11y_click_events_have_key_events-->
+    <!-- a11y_click_events_have_key_events -->
     <div
       class="tooltip__tip"
       role="button"
       tabindex="0"
       bind:this={tipElement}
-      onclick={() => instance.hide()}
+      onclick={() => {
+        if (instance) instance.hide()
+      }}
       onkeyup={() => {}}
     >
       {@render tip()}

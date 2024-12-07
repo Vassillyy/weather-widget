@@ -49,4 +49,12 @@
       display: flex
       flex-direction: column
       gap: 15px
+
+  @media (max-width: 550px)
+    .forecast-data
+      padding: 40px 20px
+
+  @media (max-width: 450px)
+    .forecast-data
+      padding: 30px 8px
 </style>

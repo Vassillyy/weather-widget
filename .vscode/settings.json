@@ -1,0 +1,10 @@
+{
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveWhenNoErrors": false,
+  "files.refactoring.autoSave": false,
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

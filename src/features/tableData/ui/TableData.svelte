@@ -1,13 +1,17 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/forecast'
 
-  let {dataForecast}: {dataForecast: Forecast | undefined} = $props()
+  type Props = {
+    dataForecast: Forecast | undefined
+  }
+
+  let {dataForecast}: Props = $props()
 
   /** Массив направлений ветра */
   const directions: string[] = ['С', 'В', 'Ю', 'З', 'СВ', 'ЮВ', 'ЮЗ', 'СЗ']
 
   /** Направление ветра в градусах */
-  let deg: number | undefined = $state()
+  let deg = $state(0)
   /** Направление ветра */
   let windDirection: string | undefined = $state()
 
@@ -71,6 +75,7 @@
 
 <style lang="sass">
   .table-data
+    width: fit-content
     background-color: var(--white-transparent)
     border-radius: 20px
     &__item
@@ -81,4 +86,26 @@
       text-shadow: 1.5px 1.5px var(--black)
     &__item_centered
       text-align: center
+
+  @media (max-width: 1150px)
+    .table-data__item
+      font-size: 24px
+
+  @media (max-width: 1000px)
+    .table-data__item
+      font-size: 18px
+
+  @media (max-width: 800px)
+    .table-data__item
+      display: block
+
+  @media (max-width: 510px)
+    .table-data__item
+      font-size: 14px
+      padding: 5px
+      text-shadow: 1px 1px var(--black)
+
+  @media (max-width: 510px)
+    .table-data__item
+      font-size: 12px
 </style>
