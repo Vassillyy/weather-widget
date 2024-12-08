@@ -70,25 +70,30 @@
       &__geolocation-info
         font-size: 21px
 
-  @media (max-width: 650px)
-     .forecast-data-header
+  @media (max-width: 700px)
+    .forecast-data-header
+      &__geolocation-info
+        flex-direction: column
+        gap: 8px
+
+  @media (max-width: 580px)
+    .forecast-data-header
       gap: 3px
       &__geolocation
+        flex-direction: column
+        gap: 0
         font-size: 40px
         text-shadow: 3px 3px var(--black)
       &__geolocation-info
-        font-size: 16px
+        font-size: 18px
         text-shadow: 1px 1px var(--black)
       &__geolocation-error
         font-size: 20px
 
   @media (max-width: 510px)
-     .forecast-data-header
+    .forecast-data-header
       &__geolocation
-        flex-direction: column
-        gap: 0
         font-size: 30px
       &__geolocation-info
-        flex-direction: column
         gap: 2px
 </style>

@@ -1,11 +1,8 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/forecast'
+  import Astrology from './Astrology.svelte'
 
-  type Props = {
-    dataForecast: Forecast | undefined
-  }
-
-  let {dataForecast}: Props = $props()
+  let {dataForecast}: {dataForecast: Forecast | undefined} = $props()
 
   /** Массив направлений ветра */
   const directions: string[] = ['С', 'В', 'Ю', 'З', 'СВ', 'ЮВ', 'ЮЗ', 'СЗ']
@@ -70,6 +67,13 @@
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td class="table-data__item table-data__item_centered" colspan="2">
+          <Astrology {dataForecast} />
+        </td>
+      </tr>
+    </tfoot>
   </table>
 {/if}
 
@@ -99,7 +103,7 @@
     .table-data__item
       display: block
 
-  @media (max-width: 510px)
+  @media (max-width: 530px)
     .table-data__item
       font-size: 14px
       padding: 5px

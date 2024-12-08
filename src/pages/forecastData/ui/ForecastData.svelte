@@ -7,7 +7,7 @@
   import ForecastDataHeader from './ForecastDataHeader.svelte'
 
   /** Данные о прогнозе */
-  let dataForecast: Forecast | undefined = $state()
+  let dataForecast: Forecast | undefined = $state.raw()
   /** Ошибка при получении данных о прогнозе */
   let error: boolean = $state(false)
 
@@ -49,6 +49,10 @@
       display: flex
       flex-direction: column
       gap: 15px
+
+  @media (max-width: 700px)
+    .forecast-data
+      padding: 40px 30px
 
   @media (max-width: 550px)
     .forecast-data
