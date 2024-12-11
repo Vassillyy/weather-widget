@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/forecast'
   import {gradientColor, tempUnit, getCodeIconNow} from '@/shared/lib'
+  import {ProgressBar} from '@/shared/ui'
 
   type Props = {
     dataForecast: Forecast | undefined
@@ -33,12 +34,14 @@
     </div>
   {:else if error}
     <img
-      class="temperature-now__icon temperature-now__icon_error"
+      class="temperature-now__icon temperature-now__icon_no-data"
       src="static/smail.png"
       alt="Ошибка"
     />
   {:else}
-    Загрузкааааааааа
+    <div class="temperature-now__icon temperature-now__icon_no-data">
+      <ProgressBar />
+    </div>
   {/if}
 </div>
 
@@ -61,7 +64,7 @@
       font-weight: 500
     &__icon
       width: 210px
-    &__icon_error
+    &__icon_no-data
       padding-top: 95px
       padding-bottom: 95px
     &__temp-value
@@ -83,7 +86,7 @@
         font-size: 21px
       &__icon
         width: 170px
-      &__icon_error
+      &__icon_no-data
         padding-top: 85px
         padding-bottom: 85px
       &__temp-value
@@ -103,7 +106,7 @@
         padding: 5px 20px
       &__icon
         width: 120px
-      &__icon_error
+      &__icon_no-data
         padding-top:55px
         padding-bottom: 55px
       &__temp-value
@@ -121,7 +124,7 @@
         padding: 4px 16px
       &__icon
         width: 80px
-      &__icon_error
+      &__icon_no-data
         padding-top:35px
         padding-bottom: 35px
       &__temp-value

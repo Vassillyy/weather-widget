@@ -18,8 +18,8 @@
       .setLocale('ru')
       .toFormat('cccc, d MMMM')}
     <div class="forecast-data-header__geolocation">
-      <span>{dataForecast.location.country}</span>
-      <span>{dataForecast.location.name}</span>
+      {dataForecast.location.country}
+      {dataForecast.location.name}
     </div>
     <div class="forecast-data-header__geolocation-info">
       <span>{getFormattedDate(formattedDate)}</span>
@@ -31,9 +31,7 @@
       Пожалуйста, попробуйте позже
     </span>
   {:else}
-    <span class="forecast-data-header__geolocation-info"
-      >Загрузка данных...</span
-    >
+    <div class="forecast-data-header__geolocation">Загрузка данных...</div>
   {/if}
 </div>
 
@@ -43,8 +41,6 @@
     flex-direction: column
     gap: 15px
     &__geolocation
-      display: flex
-      gap: 20px
       font-size: 60px
       line-height: 1
       font-weight: 500
@@ -66,34 +62,40 @@
     .forecast-data-header
       gap: 5px
       &__geolocation
-        font-size: 50px
+        font-size: 45px
       &__geolocation-info
         font-size: 21px
 
-  @media (max-width: 700px)
+  @media (max-width: 710px)
     .forecast-data-header
       &__geolocation-info
         flex-direction: column
         gap: 8px
 
+  @media (max-width: 640px)
+    .forecast-data-header
+      &__geolocation
+        font-size: 35px
+      &__geolocation-info
+        gap: 5px
+
   @media (max-width: 580px)
     .forecast-data-header
       gap: 3px
       &__geolocation
-        flex-direction: column
-        gap: 0
-        font-size: 40px
+        font-size: 30px
         text-shadow: 3px 3px var(--black)
       &__geolocation-info
         font-size: 18px
         text-shadow: 1px 1px var(--black)
+        gap: 2px
       &__geolocation-error
         font-size: 20px
 
   @media (max-width: 510px)
     .forecast-data-header
       &__geolocation
-        font-size: 30px
+        font-size: 25px
       &__geolocation-info
-        gap: 2px
+        font-size: 14px
 </style>

@@ -40,6 +40,7 @@
   .forecast-data
     display: flex
     justify-content: space-between
+    gap: 20px
     padding: 60px 40px
     background-size: cover
     background-image: url("/static/sun.jpg")

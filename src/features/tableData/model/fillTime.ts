@@ -9,7 +9,7 @@ type SunData = {
 }
 
 /** Получение времени захода и восхода солнца */
-export const fillTime = (data: Forecast): SunData => {
+export const fillTime = async (data: Forecast): Promise<SunData> => {
   const timezone = data.location.tz_id
   const localTimezone = DateTime.local().zoneName
   const nowMoment = DateTime.now().setZone(timezone)
@@ -42,9 +42,7 @@ export const fillTime = (data: Forecast): SunData => {
     }).setZone(localTimezone)
 
     if (nowMoment < sunriseNext) {
-      getOldValueSunset({data, date: nowMoment, timezone}).then((res) => {
-        sunset = res
-      })
+      sunset = await getOldValueSunset({data, date: nowMoment, timezone})
     }
   }
   return {sunrise, sunset, sunriseNext}

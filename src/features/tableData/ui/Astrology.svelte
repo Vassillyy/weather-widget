@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {onDestroy, onMount} from 'svelte'
+  import {onMount} from 'svelte'
   import {DateTime} from 'luxon'
   import {gradientColor} from '@/shared/lib'
   import type {Forecast} from '@/entities/forecast'
@@ -27,9 +27,14 @@
     }
   })
 
-  onMount(() => {
+  /**
+   * Получает данные о времени восхода и заката, а также обновляет прогресс
+   * и время до следующего события. Устанавливает интервал для периодического
+   * обновления прогресса каждую секунду.
+   */
+  const getDataAstrology = async () => {
     if (dataForecast) {
-      ;({sunrise, sunset, sunriseNext} = fillTime(dataForecast))
+      ;({sunrise, sunset, sunriseNext} = await fillTime(dataForecast))
 
       const update = () => {
         ;({progress, time} = updateProgress({
@@ -43,10 +48,14 @@
 
       timeId = setInterval(update, 1000)
     }
-  })
+  }
 
-  onDestroy(() => {
-    clearTimeout(timeId)
+  onMount(() => {
+    getDataAstrology()
+
+    return () => {
+      clearTimeout(timeId)
+    }
   })
 </script>
 
