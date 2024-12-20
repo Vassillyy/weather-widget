@@ -2,7 +2,7 @@ import axios from 'axios'
 import type {AxiosResponse} from 'axios'
 import type {Forecast} from '@/entities/forecast'
 
-export const fetchForecast = async (city: any): Promise<Forecast> => {
+export const searchForecast = async (city: string): Promise<Forecast> => {
   const apiURL = `http://api.weatherapi.com/v1/forecast.json?key=49d4f22317144367a50192730242909&q=${city}&lang=ru&days=3`
 
   try {
@@ -11,8 +11,6 @@ export const fetchForecast = async (city: any): Promise<Forecast> => {
     if (response.status !== 200) {
       throw new Error(`Ошибка: ${response.status}`)
     }
-
-    console.log(response.data)
 
     return response.data
   } catch (error) {

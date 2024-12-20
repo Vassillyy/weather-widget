@@ -17,7 +17,7 @@
   /** Прогресс заполнения */
   let progress = $state(0)
   /** Числовой идентификатор установленного таймера */
-  let timeId: number | undefined = $state()
+  let timeId: ReturnType<typeof setTimeout> | undefined = $state()
   /** Время до события */
   let time: string | undefined = $state()
 

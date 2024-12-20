@@ -1,7 +1,8 @@
 <script lang="ts">
-  import {backgroundColor, colors} from '@/shared/lib'
-  import {Button, Icon} from '@/shared/ui'
   import {fly} from 'svelte/transition'
+  import {searchCity} from '@/entities/city'
+  import {backgroundColor, colors, choisenCity} from '@/shared/lib'
+  import {Button, Icon, Tooltip} from '@/shared/ui'
 
   /** Значение input-а */
   let inputValue: string = $state('')
@@ -45,47 +46,70 @@
   const colorText: string = $derived(
     $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
   )
+
+  // let list: any = $state([])
+
+  // const x = async (val: any) => {
+  //   list = await searchCity(val)
+  // }
 </script>
 
 <svelte:window onclick={(e) => closeInput(e)} />
 
-<form class="search" bind:this={searchElement}>
-  {#if isActive}
-    <input
-      type="text"
-      class="search__input"
-      class:search__input_active={isActive}
-      placeholder={showPlaceholder ? 'Введите город' : ''}
-      style="border-color: {colorBorder}; color: {colorText}"
-      transition:fly={{x: 15, duration: 600}}
-      onintrostart={() => {
-        showPlaceholder = false
-        disabledButton = true
-      }}
-      onintroend={() => {
-        showPlaceholder = true
-        disabledButton = false
-        if (inputElement) {
-          inputElement.focus()
-        }
-      }}
-      onoutrostart={() => {
-        showPlaceholder = false
-        disabledButton = true
-      }}
-      onoutroend={() => (disabledButton = false)}
-      bind:value={inputValue}
-      bind:this={inputElement}
-    />
-  {/if}
-  <div class="search__button">
-    <Button disabled={disabledButton} onclick={clickAction}>
-      {#snippet icon()}
-        <Icon name="search" />
-      {/snippet}
-    </Button>
-  </div>
-</form>
+<Tooltip arrow={false}>
+  <form class="search" bind:this={searchElement}>
+    {#if isActive}
+      <input
+        type="text"
+        class="search__input"
+        class:search__input_active={isActive}
+        placeholder={showPlaceholder ? 'Введите город' : ''}
+        style="border-color: {colorBorder}; color: {colorText}"
+        transition:fly={{x: 15, duration: 600}}
+        onintrostart={() => {
+          showPlaceholder = false
+          disabledButton = true
+        }}
+        onintroend={() => {
+          showPlaceholder = true
+          disabledButton = false
+          if (inputElement) {
+            inputElement.focus()
+          }
+        }}
+        onoutrostart={() => {
+          showPlaceholder = false
+          disabledButton = true
+        }}
+        onoutroend={() => (disabledButton = false)}
+        bind:value={inputValue}
+        bind:this={inputElement}
+      />
+    {/if}
+
+    <div class="search__button">
+      <Button disabled={disabledButton} onclick={clickAction}>
+        {#snippet icon()}
+          <Icon name="search" />
+        {/snippet}
+      </Button>
+    </div>
+  </form>
+
+  <!-- {#if list.length}
+    {#snippet tip()}
+      <div
+        style="color: red; background-color: yellow; height: 50px; width: 50px;"
+      >
+        {#each list as item}
+          <div>{item.properties.city}</div>
+          <div>{item.properties.county}</div>
+          <div>{item.properties.country}</div>
+        {/each}
+      </div>
+    {/snippet}
+  {/if} -->
+</Tooltip>
 
 <style lang="sass">
   .search

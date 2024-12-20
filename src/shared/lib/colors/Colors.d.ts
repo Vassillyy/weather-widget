@@ -1,5 +1,6 @@
 export type Colors = {
   WHITE: string
+  WHITE_TRANSPARENT: string
   BLACK: string
   LIGHT_BLACK: string
   DARK_BLUE: string

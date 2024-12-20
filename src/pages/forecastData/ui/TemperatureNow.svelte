@@ -11,7 +11,7 @@
   let {dataForecast, error}: Props = $props()
 </script>
 
-<div class="temperature-now" style="background: {$gradientColor}">
+<div class="temperature-now" style="background-image: {$gradientColor}">
   {#if dataForecast}
     <span class="temperature-now__header">Сейчас</span>
     <img

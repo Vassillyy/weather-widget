@@ -2,11 +2,12 @@
   import {onMount} from 'svelte'
   import tippy from 'tippy.js'
   import type {Instance, Placement} from 'tippy.js'
+  import type {Snippet} from 'svelte'
   import 'tippy.js/dist/tippy.css'
 
   type Props = {
-    children: any
-    tip: any
+    children: Snippet
+    tip?: Snippet
     trigger?: 'mouseenter' | 'click'
     arrow?: boolean
     placement?: Placement
@@ -33,6 +34,7 @@
         trigger,
         arrow,
         offset: [0, 5],
+        appendTo: document.body,
         interactive: true
       })
       return () => {
@@ -70,4 +72,12 @@
     background-color: var(--light-gray)
   :global(.tippy-box[data-theme='tip'][data-placement^=bottom]>.tippy-arrow:before)
     border-bottom-color: var(--light-gray)
+
+    // TODO: Добавлен прозрачный стиль, тк если не передается tip, показывается пустая подсказка
+
+  // :global(.tippy-box[data-theme='transparent'])
+  //   background-color: transparent
+  //   border: none
+  // :global(.tippy-box[data-theme='transparent'][data-placement^=bottom]>.tippy-arrow:before)
+    // border-bottom-color: transparent
 </style>

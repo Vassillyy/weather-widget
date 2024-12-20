@@ -99,7 +99,7 @@
     .table-data__item
       font-size: 18px
 
-  @media (max-width: 800px)
+  @media (max-width: 810px)
     .table-data__item
       display: block
 

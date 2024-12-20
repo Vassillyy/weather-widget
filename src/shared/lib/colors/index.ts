@@ -1,12 +1,10 @@
 import type {Colors} from './Colors'
 
-/**
- * Все цвета которые используются в проекте.
- */
+/** Все цвета которые используются в проекте */
 export const colors: Colors = {
   WHITE: 'rgb(255, 255, 255)',
   BLACK: 'rgb(0, 0, 0)',
-  //   WHITE_TRANSPARENT: 'rgba(255, 255, 255, 0.2)',
+  WHITE_TRANSPARENT: 'rgba(255, 255, 255, 0.2)',
   LIGHT_BLACK: 'rgb(31, 31, 31)',
   DARK_BLUE: 'rgb(53, 53, 137)',
   BLUE_60: 'rgb(90, 90, 190)',
