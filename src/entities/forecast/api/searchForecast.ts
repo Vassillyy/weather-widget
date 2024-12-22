@@ -12,6 +12,8 @@ export const searchForecast = async (city: string): Promise<Forecast> => {
       throw new Error(`Ошибка: ${response.status}`)
     }
 
+    console.log(response.data)
+
     return response.data
   } catch (error) {
     console.error(error)

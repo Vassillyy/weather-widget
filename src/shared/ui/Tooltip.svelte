@@ -11,6 +11,7 @@
     trigger?: 'mouseenter' | 'click'
     arrow?: boolean
     placement?: Placement
+    theme?: string
   }
 
   let {
@@ -18,7 +19,8 @@
     tip,
     trigger = 'mouseenter',
     arrow = true,
-    placement = 'bottom'
+    placement = 'bottom',
+    theme = 'tip-white'
   }: Props = $props()
 
   let tooltipElement: HTMLElement | undefined = $state()
@@ -30,10 +32,10 @@
       instance = tippy(tooltipElement, {
         content: tipElement,
         placement,
-        theme: 'tip',
+        theme,
         trigger,
         arrow,
-        offset: [0, 5],
+        offset: [0, 10],
         appendTo: document.body,
         interactive: true
       })
@@ -68,16 +70,14 @@
 <style lang="sass">
   .tooltip
     cursor: pointer
-  :global(.tippy-box[data-theme='tip'])
+  :global(.tippy-box[data-theme='tip-grey'])
     background-color: var(--light-gray)
-  :global(.tippy-box[data-theme='tip'][data-placement^=bottom]>.tippy-arrow:before)
+  :global(.tippy-box[data-theme='tip-grey'][data-placement^=bottom]>.tippy-arrow:before)
     border-bottom-color: var(--light-gray)
 
-    // TODO: Добавлен прозрачный стиль, тк если не передается tip, показывается пустая подсказка
-
-  // :global(.tippy-box[data-theme='transparent'])
-  //   background-color: transparent
-  //   border: none
-  // :global(.tippy-box[data-theme='transparent'][data-placement^=bottom]>.tippy-arrow:before)
-    // border-bottom-color: transparent
+  :global(.tippy-box[data-theme='tip-white'])
+    background-color: var(--white)
+    color: var(--black)
+  :global(.tippy-box[data-theme='tip-white'][data-placement^=bottom]>.tippy-arrow:before)
+    border-bottom-color: var(--white)
 </style>

@@ -28,7 +28,9 @@
       {@render icon()}
     </div>
   {:else if text}
-    {@render text()}
+    <div class="button__inscription">
+      {@render text()}
+    </div>
   {/if}
 </svelte:element>
 
@@ -41,6 +43,7 @@
     padding: 0
     cursor: pointer
     flex-shrink: 0
+    color: var(--white)
     &:disabled
       cursor: not-allowed
     &_icon
@@ -50,19 +53,19 @@
     &__image
       width: 40px
       height: 40px
-
     &_text
       border-radius: 10px
       padding: 8px 15px
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
+      &:active
+        transform: scale(0.9) translate(2px, 2px)
+        box-shadow: none
+    &__inscription
       font-size: 25px
       color: var(--white)
       text-shadow: 1px 1px var(--black)
       font-style: italic
       font-weight: 400
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
-      &:active
-        transform: scale(0.9) translate(2px, 2px)
-        box-shadow: none
 
   @media (max-width: 1000px)
     .button
@@ -72,11 +75,19 @@
       &__image
         width: 30px
         height: 30px
-      &_text
+      &__inscription
         font-size: 17px
 
   @media (max-width: 450px)
-    .button_text
-      padding: 5px 5px
-      font-size: 14px
+    .button
+      &_icon
+        width: 40px
+        height: 40px
+      &__image
+        width: 25px
+        height: 25px
+      &_text
+        padding: 5px 5px
+      &__inscription
+        font-size: 14px
 </style>

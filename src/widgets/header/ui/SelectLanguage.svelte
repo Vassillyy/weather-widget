@@ -27,7 +27,12 @@
 </script>
 
 <div class="select-language">
-  <Tooltip trigger="click" arrow={false} placement="bottom-end">
+  <Tooltip
+    theme="tip-grey"
+    trigger="click"
+    arrow={false}
+    placement="bottom-end"
+  >
     <Button>
       {#snippet icon()}
         <Icon name={seclectedLanguage.value} />

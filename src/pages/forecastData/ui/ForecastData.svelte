@@ -1,7 +1,8 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/forecast'
+  import {chosenCity} from '@/entities/city'
   import {TableData} from '@/features/tableData'
-  import {choisenCity, colors} from '@/shared/lib'
+  import {colors} from '@/shared/lib'
   import {Button} from '@/shared/ui'
   import TemperatureNow from './TemperatureNow.svelte'
   import ForecastDataHeader from './ForecastDataHeader.svelte'
@@ -22,15 +23,15 @@
   })
 
   $effect(() => {
-    if ($choisenCity) {
+    if ($chosenCity) {
       getDataForecast()
     }
   })
 
   /** Получение данных через деструктурицацию */
   const getDataForecast = async () => {
-    if ($choisenCity) {
-      ;({dataForecast, error} = await getForecastForCity($choisenCity))
+    if ($chosenCity) {
+      ;({dataForecast, error} = await getForecastForCity($chosenCity))
     }
   }
 </script>

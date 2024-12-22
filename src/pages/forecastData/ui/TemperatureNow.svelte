@@ -1,7 +1,9 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/forecast'
+  import {chosenCity} from '@/entities/city'
+  import {searchForecast} from '@/entities/forecast'
   import {gradientColor, tempUnit, getCodeIconNow} from '@/shared/lib'
-  import {ProgressBar} from '@/shared/ui'
+  import {ProgressBar, Icon, Tooltip} from '@/shared/ui'
 
   type Props = {
     dataForecast: Forecast | undefined
@@ -9,11 +11,27 @@
   }
 
   let {dataForecast, error}: Props = $props()
+
+  /** Угол поворота стрелок при клике на обновить данные */
+  let rotation = $state(0)
+
+  /** Обновляем данные погоды */
+  const updateData = async (): Promise<void> => {
+    rotation += 180
+    await searchForecast($chosenCity)
+  }
 </script>
 
 <div class="temperature-now" style="background-image: {$gradientColor}">
   {#if dataForecast}
-    <span class="temperature-now__header">Сейчас</span>
+    <Tooltip>
+      <button onclick={updateData} class="temperature-now__update">
+        <Icon name="reboot" {rotation} />
+      </button>
+      {#snippet tip()}
+        <span class="temperature-now__tip">Обновить данные</span>
+      {/snippet}
+    </Tooltip>
     <img
       class="temperature-now__icon"
       src={`static/${getCodeIconNow(dataForecast)}.png`}
@@ -55,13 +73,14 @@
     align-items: center
     gap: 14px
     flex-shrink: 0
-    &__header
+    &__update
       background-color: var(--dark-blue)
-      padding: 7px 35px
+      padding: 5px 35px
       border-radius: 30px
-      font-size: 22px
-      line-height: 1
-      font-weight: 500
+      border: none
+      cursor: pointer
+    &__tip
+      font-size: 18px
     &__icon
       width: 210px
     &__icon_no-data
@@ -82,8 +101,6 @@
     .temperature-now
       padding: 15px
       gap: 8px
-      &__header
-        font-size: 21px
       &__icon
         width: 170px
       &__icon_no-data
@@ -101,9 +118,10 @@
   @media (max-width: 1000px)
     .temperature-now
       gap: 4px
-      &__header
-        font-size: 14px
-        padding: 5px 20px
+      &__update
+         padding: 3px 30px
+      &__tip
+        font-size: 12px
       &__icon
         width: 120px
       &__icon_no-data
@@ -119,9 +137,10 @@
   @media (max-width: 450px)
     .temperature-now
       gap: 2px
-      &__header
+      &__update
+         padding: 2px 20px
+      &__tip
         font-size: 10px
-        padding: 4px 16px
       &__icon
         width: 80px
       &__icon_no-data

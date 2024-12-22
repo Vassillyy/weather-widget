@@ -1,8 +1,10 @@
 <script lang="ts">
   import {onMount} from 'svelte'
   import {DateTime} from 'luxon'
-  import {gradientColor} from '@/shared/lib'
+  import {searchForecast} from '@/entities/forecast'
   import type {Forecast} from '@/entities/forecast'
+  import {chosenCity} from '@/entities/city'
+  import {gradientColor} from '@/shared/lib'
   import {fillTime} from '../model/fillTime'
   import {updateProgress} from '../model/updateProgress'
 
@@ -36,12 +38,16 @@
     if (dataForecast) {
       ;({sunrise, sunset, sunriseNext} = await fillTime(dataForecast))
 
-      const update = () => {
+      const update = async () => {
         ;({progress, time} = updateProgress({
           sunrise: sunrise!,
           sunset: sunset!,
           sunriseNext: sunriseNext!
         }))
+
+        if (time === '00:00:00') {
+          await searchForecast($chosenCity)
+        }
       }
 
       update()

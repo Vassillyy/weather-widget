@@ -21,64 +21,69 @@
 </script>
 
 {#if dataForecast}
-  <table class="table-data">
-    <thead>
-      <tr>
-        <td class="table-data__item table-data__item_centered" colspan="2">
-          {dataForecast.current.condition.text}
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="table-data__item">
-          Количество осадков: {dataForecast.current.precip_mm} мм
-        </td>
-        <td class="table-data__item">
-          Влажность: {dataForecast.current.humidity} %
-        </td>
-      </tr>
-      <tr>
-        <td class="table-data__item">
-          Скорость ветра:
-          {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)} м/с с {windDirection}
-        </td>
-        <td class="table-data__item">
-          Порывы ветра: {((dataForecast.current.gust_kph * 10) / 36).toFixed(2)}
-          м/с
-        </td>
-      </tr>
-      <tr>
-        <td class="table-data__item">
-          Атмосферное давление: {dataForecast.current.pressure_mb} гПа
-        </td>
-        <td class="table-data__item">
-          Видимость: {dataForecast.current.vis_km} км
-        </td>
-      </tr>
-      <tr>
-        <td class="table-data__item">
-          Вероятность дождя: {dataForecast.forecast.forecastday[0].day
-            .daily_chance_of_rain} %
-        </td>
-        <td class="table-data__item">
-          Вероятность снега: {dataForecast.forecast.forecastday[0].day
-            .daily_chance_of_snow} %
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td class="table-data__item table-data__item_centered" colspan="2">
-          <Astrology {dataForecast} />
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="table-data">
+    <table>
+      <thead>
+        <tr>
+          <td class="table-data__item table-data__item_centered" colspan="2">
+            {dataForecast.current.condition.text}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-data__item">
+            Количество осадков: {dataForecast.current.precip_mm} мм
+          </td>
+          <td class="table-data__item">
+            Влажность: {dataForecast.current.humidity} %
+          </td>
+        </tr>
+        <tr>
+          <td class="table-data__item">
+            Скорость ветра:
+            {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)} м/с с {windDirection}
+          </td>
+          <td class="table-data__item">
+            Порывы ветра: {((dataForecast.current.gust_kph * 10) / 36).toFixed(
+              2
+            )}
+            м/с
+          </td>
+        </tr>
+        <tr>
+          <td class="table-data__item">
+            Атмосферное давление: {dataForecast.current.pressure_mb} гПа
+          </td>
+          <td class="table-data__item">
+            Видимость: {dataForecast.current.vis_km} км
+          </td>
+        </tr>
+        <tr>
+          <td class="table-data__item">
+            Вероятность дождя: {dataForecast.forecast.forecastday[0].day
+              .daily_chance_of_rain} %
+          </td>
+          <td class="table-data__item">
+            Вероятность снега: {dataForecast.forecast.forecastday[0].day
+              .daily_chance_of_snow} %
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="table-data__item table-data__item_centered" colspan="2">
+            <Astrology {dataForecast} />
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 {/if}
 
 <style lang="sass">
   .table-data
+    position: relative
     width: fit-content
     background-color: var(--white-transparent)
     border-radius: 20px

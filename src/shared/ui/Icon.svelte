@@ -2,7 +2,12 @@
   import {backgroundColor} from '@/shared/lib'
   import {colors} from '@/shared/lib'
 
-  let {name}: {name: string} = $props()
+  type Props = {
+    name: string
+    rotation?: number
+  }
+
+  let {name, rotation}: Props = $props()
 
   /** Цвет луны в зависимости от фона. */
   const colorMoon: string = $derived(
@@ -223,7 +228,23 @@
         </path>
       </g>
     </svg>
-  {/if}
+  {:else if name === 'reboot'}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon__reboot"
+      style="transform: rotate({rotation}deg)"
+      viewBox="0 0 20 20"
+      fill={colors.WHITE}
+    >
+      <g style:stroke={colors.BLACK} style:stroke-width="0.6">
+        <path
+          d="m18.5 6.5-1.6 1.6c-.3-4.5-4-8.1-8.6-8.1h-.3v2h.3c3.4 0 6.3 2.7 6.5 6.1l-1.6-1.6-1.4 1.4 4 4 4-4z"
+        />
+        <path
+          d="m5.2 11.9 1.6 1.6 1.4-1.4-4-4-4 4 1.4 1.4 1.6-1.6c.2 4.5 3.9 8.1 8.5 8.1h.3v-2h-.3c-3.5 0-6.3-2.7-6.5-6.1z"
+        />
+      </g>
+    </svg>{/if}
 </div>
 
 <style lang="sass">
@@ -231,6 +252,9 @@
     display: flex
     justify-content: center
     align-items: center
+    &__reboot
+      width: 20px
+      transition: transform 0.5s ease
     &__logo
       width: 120px
       height: auto
@@ -241,6 +265,10 @@
     .icon__logo
       width: 100px
 
+  @media (max-width: 1000px)
+    .icon__reboot
+      width: 15px
+
   @media (max-width: 760px)
     .icon__logo
       width: 70px
@@ -248,4 +276,8 @@
   @media (max-width: 600px)
     .icon__logo
       width: 55px
+
+  @media (max-width: 450px)
+    .icon__reboot
+      width: 10px
 </style>
