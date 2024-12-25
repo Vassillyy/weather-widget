@@ -69,7 +69,7 @@
         return
       }
 
-      city = await searchCity(val)
+      city = await searchCity(val.trim())
       if (!city && isActive) disabledButton = true
       else disabledButton = false
     } catch (error) {
