@@ -4,6 +4,7 @@
   import {chosenCity} from '@/entities/city'
   import {backgroundColor, colors} from '@/shared/lib'
   import {Button, Icon} from '@/shared/ui'
+  import {citySchema} from '../model/citySchema.schema'
 
   /** Значение input-а */
   let inputValue: string = $state('')
@@ -17,6 +18,18 @@
   let searchElement: HTMLElement | null = $state(null)
   /** Элемент HTML, представляющий input. */
   let inputElement: HTMLElement | null = $state(null)
+  /** Найденный город */
+  let city: string | undefined = $state()
+
+  /** Цвет обводки. */
+  const colorBorder: string = $derived(
+    $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
+  )
+  /** Цвет текста в поле. */
+  const colorText: string = $derived(
+    $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
+  )
+
   /**
    * Скрываем input.
    * @param event - событие клика мыши.
@@ -33,26 +46,45 @@
   }
   /** Дейсвие по клику (или открываем input или ищем город) */
   const clickAction = (): void => {
-    isActive ? searchSity() : (isActive = true)
+    isActive ? saveCity() : (isActive = true)
   }
-  /** Поиск города */
-  const searchSity = (): void => {
-    console.log('Ищем нужный город')
+  /** Сохранение города в хранилище */
+  const saveCity = (): void => {
+    if (city) chosenCity.set(city)
+    isActive = false
+    inputValue = ''
+    city = ''
   }
-  /** Цвет обводки. */
-  const colorBorder: string = $derived(
-    $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
-  )
-  /** Цвет текста в поле. */
-  const colorText: string = $derived(
-    $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
-  )
+  /**
+   * Поиск города.
+   * @param val - вводимое в поле значение.
+   */
+  const checkCity = async (val: string) => {
+    try {
+      const validatedValue = citySchema.parse(inputValue)
+      inputValue = validatedValue
 
-  // let list: any = $state([])
+      if (inputValue.length < 3) {
+        disabledButton = true
+        return
+      }
 
-  // const x = async (val: any) => {
-  //   list = await searchCity(val)
-  // }
+      city = await searchCity(val)
+      if (!city && isActive) disabledButton = true
+      else disabledButton = false
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  /**
+   * Не допускаем ввод цифр и спец. символов.
+   * @param event событие ввода.
+   */
+  const inputBan = (event: InputEvent) => {
+    if (event.data && /[^\p{L}\s-]/u.test(event.data)) {
+      event.preventDefault()
+    }
+  }
 </script>
 
 <svelte:window onclick={(e) => closeInput(e)} />
@@ -84,6 +116,8 @@
       onoutroend={() => (disabledButton = false)}
       bind:value={inputValue}
       bind:this={inputElement}
+      oninput={() => checkCity(inputValue)}
+      onbeforeinput={inputBan}
     />
   {/if}
 

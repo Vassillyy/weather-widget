@@ -51,4 +51,8 @@
       flex-wrap: wrap
       justify-content: space-between
       gap: 10px
+
+  @media (max-width: 450px)
+    .header__block-settings
+      width: 90px
 </style>

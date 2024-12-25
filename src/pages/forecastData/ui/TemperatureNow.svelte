@@ -8,9 +8,10 @@
   type Props = {
     dataForecast: Forecast | undefined
     error: boolean
+    update: (data: Forecast) => void
   }
 
-  let {dataForecast, error}: Props = $props()
+  let {dataForecast, error, update}: Props = $props()
 
   /** Угол поворота стрелок при клике на обновить данные */
   let rotation = $state(0)
@@ -18,7 +19,8 @@
   /** Обновляем данные погоды */
   const updateData = async (): Promise<void> => {
     rotation += 180
-    await searchForecast($chosenCity)
+    const data = await searchForecast($chosenCity)
+    update(data)
   }
 </script>
 

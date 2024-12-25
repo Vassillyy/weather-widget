@@ -46,7 +46,11 @@
     <TableData {dataForecast} />
   </div>
   <div class="forecast-data__side">
-    <TemperatureNow {dataForecast} {error} />
+    <TemperatureNow
+      {dataForecast}
+      {error}
+      update={(data: Forecast) => (dataForecast = data)}
+    />
     <Button onclick={getMyCity} color={colors.WHITE_TRANSPARENT}>
       {#snippet text()}
         Моя геолокация

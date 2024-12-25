@@ -1,4 +1,8 @@
 export type City = {
+  features: Data[]
+}
+
+type Data = {
   bbox: number[]
   geometry: Geometry
   properties: Properties

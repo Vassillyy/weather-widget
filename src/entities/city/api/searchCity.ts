@@ -4,15 +4,22 @@ import type {City} from '../model/City'
 
 export const searchCity = async (
   value: string
-): Promise<City[] | undefined> => {
-  if (value.length < 3) return
-
+): Promise<string | undefined> => {
   const apiURL = `https://api.geoapify.com/v1/geocode/search?text=${value}&lang=ru&type=city&apiKey=d27753f9ddea41d1abc33eaaa7aa7f2f`
   try {
-    const response: AxiosResponse<any> = await axios.get(apiURL)
+    const response: AxiosResponse<City> = await axios.get(apiURL)
+
+    if (response.status !== 200) {
+      throw new Error(`Ошибка: ${response.status}`)
+    }
+
     const data = response.data.features
 
-    return data
+    for (let item of data) {
+      if (Object.is(item.properties.city, value)) {
+        return item.properties.city
+      }
+    }
   } catch (error) {
     console.error(error)
     throw error
