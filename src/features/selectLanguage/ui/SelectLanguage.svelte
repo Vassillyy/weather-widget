@@ -1,28 +1,28 @@
 <script lang="ts">
   import {Icon, Tooltip, Button} from '@/shared/ui'
+  import {i18n} from '@/shared/i18n'
+  import {listLanguages} from '../model/listLanguages'
+  import type {Language} from '../model/Language'
 
-  type Language = {
-    value: string
-    name: string
-  }
+  /** Выбранный язык*/
+  let seclectedLanguage: Language = $state(
+    (() => {
+      const storedLang = localStorage.getItem('lang')
 
-  const listLanguages: Language[] = [
-    {
-      value: 'ru',
-      name: 'Русский'
-    },
-    {
-      value: 'en',
-      name: 'English'
-    }
-  ]
-
-  let seclectedLanguage: Language = listLanguages[0]
-
+      return (
+        listLanguages.find((lang) => lang.value === storedLang) ||
+        listLanguages[0]
+      )
+    })()
+  )
+  /**
+   * Смена языка.
+   * @param language - выьранный язык.
+   */
   const changeLanguage = (language: Language): void => {
-    seclectedLanguage = listLanguages.find(
-      (lang) => lang.value === language.value
-    )!
+    i18n.set(seclectedLanguage.value)
+    localStorage.setItem('lang', language.value)
+    seclectedLanguage = language
   }
 </script>
 

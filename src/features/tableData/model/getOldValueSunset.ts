@@ -1,7 +1,7 @@
 import {DateTime} from 'luxon'
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
-import type {Forecast} from '@/entities/forecast'
+import type {Forecast} from '@/entities/weatherForecast'
 
 type Parameters = {
   data: Forecast

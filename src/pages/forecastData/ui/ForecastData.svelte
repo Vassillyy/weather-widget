@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type {Forecast} from '@/entities/forecast'
+  import type {Forecast} from '@/entities/weatherForecast'
   import {chosenCity} from '@/entities/city'
   import {TableData} from '@/features/tableData'
   import {colors} from '@/shared/lib'
   import {Button} from '@/shared/ui'
+  import {i18n} from '@/shared/i18n'
   import TemperatureNow from './TemperatureNow.svelte'
   import ForecastDataHeader from './ForecastDataHeader.svelte'
   import {getMyCity} from '../model/getMyCity'
@@ -53,7 +54,7 @@
     />
     <Button onclick={getMyCity} color={colors.WHITE_TRANSPARENT}>
       {#snippet text()}
-        Моя геолокация
+        {i18n.get('my_geolocation')}
       {/snippet}
     </Button>
   </div>

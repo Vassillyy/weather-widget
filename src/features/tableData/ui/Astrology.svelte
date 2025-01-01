@@ -1,10 +1,8 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
   import {DateTime} from 'luxon'
-  import {searchForecast} from '@/entities/forecast'
-  import type {Forecast} from '@/entities/forecast'
-  import {chosenCity} from '@/entities/city'
+  import type {Forecast} from '@/entities/weatherForecast'
   import {gradientColor} from '@/shared/lib'
+  import {i18n} from '@/shared/i18n'
   import {fillTime} from '../model/fillTime'
   import {updateProgress} from '../model/updateProgress'
 
@@ -25,7 +23,7 @@
 
   $effect(() => {
     if (dataForecast) {
-      fillTime(dataForecast)
+      getDataAstrology()
     }
   })
 
@@ -36,43 +34,46 @@
    */
   const getDataAstrology = async () => {
     if (dataForecast) {
-      ;({sunrise, sunset, sunriseNext} = await fillTime(dataForecast))
+      const sunData = await fillTime(dataForecast)
+      sunrise = sunData.sunrise
+      sunset = sunData.sunset
+      sunriseNext = sunData.sunriseNext
 
       const update = async () => {
-        ;({progress, time} = updateProgress({
+        const progressData = updateProgress({
           sunrise: sunrise!,
           sunset: sunset!,
           sunriseNext: sunriseNext!
-        }))
+        })
+        progress = progressData.progress
+        time = progressData.time
 
         if (time === '00:00:00') {
-          await searchForecast($chosenCity)
+          clearInterval(timeId)
+          getDataAstrology()
+          return
         }
       }
 
       update()
-
+      if (timeId) {
+        clearInterval(timeId)
+      }
       timeId = setInterval(update, 1000)
     }
   }
-
-  onMount(() => {
-    getDataAstrology()
-
-    return () => {
-      clearTimeout(timeId)
-    }
-  })
 </script>
 
 {#if sunrise && sunset && DateTime.now() >= sunrise && DateTime.now() <= sunset}
   <div class="astrology">
     <div class="astrology__header">
       <span>
-        Восход в: {sunrise.toFormat('HH')}:{sunrise.toFormat('mm')}
+        {i18n.get('sunrise_in')}
+        {sunrise.toFormat('HH')}:{sunrise.toFormat('mm')}
       </span>
       <span>
-        Закат в: {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
+        {i18n.get('sunset_in')}
+        {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
       </span>
     </div>
     <div class="astrology__progress-container">
@@ -81,16 +82,18 @@
         style="width: {progress}%; background-image: {$gradientColor}"
       ></div>
     </div>
-    <div>До восхода: {time}</div>
+    <div>{i18n.get('before_sunset')} {time}</div>
   </div>
 {:else if sunrise && sunset && sunriseNext}
   <div class="astrology">
     <div class="astrology__header">
       <span>
-        Закат в: {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
+        {i18n.get('sunset_in')}
+        {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
       </span>
       <span>
-        Восход в: {sunriseNext.toFormat('HH')}:{sunriseNext.toFormat('mm')}
+        {i18n.get('sunrise_in')}
+        {sunriseNext.toFormat('HH')}:{sunriseNext.toFormat('mm')}
       </span>
     </div>
     <div class="astrology__progress-container">
@@ -99,7 +102,7 @@
         style="width: {progress}%; background-image: {$gradientColor}"
       ></div>
     </div>
-    <div>До восхода: {time}</div>
+    <div>{i18n.get('before_sunrise')} {time}</div>
   </div>
 {/if}
 

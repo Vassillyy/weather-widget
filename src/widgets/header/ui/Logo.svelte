@@ -1,11 +1,14 @@
 <script lang="ts">
   import {Icon} from '@/shared/ui'
   import {gradientColor} from '@/shared/lib'
+  import {i18n} from '@/shared/i18n'
 </script>
 
 <div class="logo">
   <Icon name="logo" />
-  <p class="logo__text" style="background-image: {$gradientColor}">МетеоМир</p>
+  <p class="logo__text" style="background-image: {$gradientColor}">
+    {i18n.get('logo')}
+  </p>
 </div>
 
 <style lang="sass">

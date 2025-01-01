@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon'
-import type {Forecast} from '@/entities/forecast'
+import type {Forecast} from '@/entities/weatherForecast'
 import {getOldValueSunset} from './getOldValueSunset'
 
 type SunData = {

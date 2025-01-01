@@ -1,5 +1,5 @@
-import {searchForecast} from '@/entities/forecast'
-import type {Forecast} from '@/entities/forecast'
+import {searchForecast} from '@/entities/weatherForecast'
+import type {Forecast} from '@/entities/weatherForecast'
 
 type Data = {
   dataForecast: Forecast | undefined

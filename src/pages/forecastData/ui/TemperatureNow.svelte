@@ -1,9 +1,11 @@
 <script lang="ts">
-  import type {Forecast} from '@/entities/forecast'
+  import {Duration} from 'luxon'
+  import type {Forecast} from '@/entities/weatherForecast'
   import {chosenCity} from '@/entities/city'
-  import {searchForecast} from '@/entities/forecast'
+  import {searchForecast} from '@/entities/weatherForecast'
   import {gradientColor, tempUnit, getCodeIconNow} from '@/shared/lib'
   import {ProgressBar, Icon, Tooltip} from '@/shared/ui'
+  import {i18n} from '@/shared/i18n'
 
   type Props = {
     dataForecast: Forecast | undefined
@@ -15,23 +17,44 @@
 
   /** Угол поворота стрелок при клике на обновить данные */
   let rotation = $state(0)
+  /** Состояние кнопки обновления данных */
+  let disabled = $state(false)
+  /** Оставшееся время до разблокировки кнопки обновить */
+  let timeLeft: Duration | undefined = $state()
+  /** Текст подсказки */
+  let textTip = $derived(
+    disabled
+      ? i18n.get('update_in') + ' ' + timeLeft?.toFormat('mm:ss')
+      : i18n.get('update_data')
+  )
 
   /** Обновляем данные погоды */
   const updateData = async (): Promise<void> => {
     rotation += 180
+    disabled = true
     const data = await searchForecast($chosenCity)
     update(data)
+    timeLeft = Duration.fromObject({minutes: 0.2})
+    const interval = setInterval(() => {
+      if (timeLeft!.as('seconds') > 0) {
+        timeLeft = timeLeft!.minus({seconds: 1})
+      } else {
+        clearInterval(interval)
+        timeLeft = undefined
+        disabled = false
+      }
+    }, 1000)
   }
 </script>
 
 <div class="temperature-now" style="background-image: {$gradientColor}">
   {#if dataForecast}
     <Tooltip>
-      <button onclick={updateData} class="temperature-now__update">
+      <button {disabled} onclick={updateData} class="temperature-now__update">
         <Icon name="reboot" {rotation} />
       </button>
       {#snippet tip()}
-        <span class="temperature-now__tip">Обновить данные</span>
+        <span class="temperature-now__tip">{textTip}</span>
       {/snippet}
     </Tooltip>
     <img
@@ -45,7 +68,9 @@
         : Math.round(dataForecast.current.temp_f) + ' ' + $tempUnit}
     </span>
     <div class="temperature-now__temp-feeling-block">
-      <div class="temperature-now__temp-feeling-value">Ощущается как:</div>
+      <div class="temperature-now__temp-feeling-value">
+        {i18n.get('feels_like')}
+      </div>
       <div class="temperature-now__temp-feeling-value">
         {$tempUnit === '°C'
           ? Math.round(dataForecast.current.feelslike_c) + ' ' + $tempUnit

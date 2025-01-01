@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type {Forecast} from '@/entities/forecast'
   import {DateTime} from 'luxon'
+  import type {Forecast} from '@/entities/weatherForecast'
+  import {i18n} from '@/shared/i18n'
   import {getFormattedDate} from '../model/getFormattedDate'
 
   type Props = {
@@ -15,7 +16,7 @@
   {#if dataForecast}
     {@const [date, timeUpdate] = dataForecast.current.last_updated.split(' ')}
     {@const formattedDate = DateTime.fromISO(date)
-      .setLocale('ru')
+      .setLocale(i18n.currentLanguage)
       .toFormat('cccc, d MMMM')}
     <div class="forecast-data-header__geolocation">
       {dataForecast.location.country}
@@ -23,15 +24,17 @@
     </div>
     <div class="forecast-data-header__geolocation-info">
       <span>{getFormattedDate(formattedDate)}</span>
-      <span>Обновлено в: {timeUpdate}</span>
+      <span>{i18n.get('updated')} {timeUpdate}</span>
     </div>
   {:else if error}
     <span class="forecast-data-header__geolocation-error">
-      Извините, данные о погоде временно недоступны<br />
-      Пожалуйста, попробуйте позже
+      {i18n.get('sorry')}<br />
+      {i18n.get('again_later')}
     </span>
   {:else}
-    <div class="forecast-data-header__geolocation">Загрузка данных...</div>
+    <div class="forecast-data-header__geolocation">
+      {i18n.get('loading_data')}
+    </div>
   {/if}
 </div>
 

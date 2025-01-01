@@ -1,10 +1,11 @@
 <script lang="ts">
   import {fly} from 'svelte/transition'
-  import {searchCity} from '@/entities/city'
-  import {chosenCity} from '@/entities/city'
+  import {searchCity, chosenCity} from '@/entities/city'
   import {backgroundColor, colors} from '@/shared/lib'
   import {Button, Icon} from '@/shared/ui'
-  import {citySchema} from '../model/citySchema.schema'
+  import {i18n} from '@/shared/i18n'
+  import {citySchema} from '../model/citySchema'
+  import {inputBan} from '../model/inputBan'
 
   /** Значение input-а */
   let inputValue: string = $state('')
@@ -20,6 +21,8 @@
   let inputElement: HTMLElement | null = $state(null)
   /** Найденный город */
   let city: string | undefined = $state()
+  /** Таймер задержки перед отправкой запроса на поиск города */
+  let timerId: ReturnType<typeof setTimeout> | undefined = $state()
 
   /** Цвет обводки. */
   const colorBorder: string = $derived(
@@ -59,31 +62,23 @@
    * Поиск города.
    * @param val - вводимое в поле значение.
    */
-  const checkCity = async (val: string) => {
-    try {
-      const validatedValue = citySchema.parse(inputValue)
-      inputValue = validatedValue
+  const checkCity = (val: string): void => {
+    if (timerId) clearTimeout(timerId)
 
-      if (inputValue.length < 3) {
-        disabledButton = true
-        return
-      }
+    const validatedValue = citySchema.parse(inputValue)
+    inputValue = validatedValue
 
+    if (inputValue.length < 3) {
+      disabledButton = true
+      return
+    }
+
+    timerId = setTimeout(async () => {
       city = await searchCity(val.trim())
+
       if (!city && isActive) disabledButton = true
       else disabledButton = false
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  /**
-   * Не допускаем ввод цифр и спец. символов.
-   * @param event событие ввода.
-   */
-  const inputBan = (event: InputEvent) => {
-    if (event.data && /[^\p{L}\s-]/u.test(event.data)) {
-      event.preventDefault()
-    }
+    }, 1000)
   }
 </script>
 
@@ -95,7 +90,7 @@
       type="text"
       class="search__input"
       class:search__input_active={isActive}
-      placeholder={showPlaceholder ? 'Введите город' : ''}
+      placeholder={showPlaceholder ? i18n.get('enter_city') : ''}
       style="border-color: {colorBorder}; color: {colorText}"
       transition:fly={{x: 15, duration: 600}}
       onintrostart={() => {

@@ -1,9 +1,9 @@
 <script lang="ts">
+  import {SelectLanguage} from '@/features/selectLanguage'
+  import {SearchCity} from '@/features/searchCity'
   import {colors, gradientColor, tempUnit} from '@/shared/lib'
   import {Button, Icon} from '@/shared/ui'
   import Logo from './Logo.svelte'
-  import Search from './Search.svelte'
-  import SelectLanguage from './SelectLanguage.svelte'
   import {changeTempUnit} from '../model/changeTempUnit'
   import {changeColors} from '../model/changeColors'
 </script>
@@ -12,7 +12,7 @@
   <Logo />
 
   <div class="header__block-settings">
-    <Search />
+    <SearchCity />
 
     <Button onclick={changeTempUnit} color={$gradientColor}>
       {#snippet icon()}

@@ -1,11 +1,21 @@
 <script lang="ts">
-  import type {Forecast} from '@/entities/forecast'
+  import type {Forecast} from '@/entities/weatherForecast'
+  import {i18n} from '@/shared/i18n'
   import Astrology from './Astrology.svelte'
 
   let {dataForecast}: {dataForecast: Forecast | undefined} = $props()
 
   /** Массив направлений ветра */
-  const directions: string[] = ['С', 'В', 'Ю', 'З', 'СВ', 'ЮВ', 'ЮЗ', 'СЗ']
+  const directions = [
+    i18n.get('north'),
+    i18n.get('north_east'),
+    i18n.get('east'),
+    i18n.get('south_east'),
+    i18n.get('south'),
+    i18n.get('south_west'),
+    i18n.get('west'),
+    i18n.get('north_west')
+  ]
 
   /** Направление ветра в градусах */
   let deg = $state(0)
@@ -33,40 +43,49 @@
       <tbody>
         <tr>
           <td class="table-data__item">
-            Количество осадков: {dataForecast.current.precip_mm} мм
+            {i18n.get('amount_of_precipitation')}
+            {dataForecast.current.precip_mm}
+            {i18n.get('mm')}
           </td>
           <td class="table-data__item">
-            Влажность: {dataForecast.current.humidity} %
-          </td>
-        </tr>
-        <tr>
-          <td class="table-data__item">
-            Скорость ветра:
-            {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)} м/с с {windDirection}
-          </td>
-          <td class="table-data__item">
-            Порывы ветра: {((dataForecast.current.gust_kph * 10) / 36).toFixed(
-              2
-            )}
-            м/с
+            {i18n.get('humidity')}
+            {dataForecast.current.humidity} %
           </td>
         </tr>
         <tr>
           <td class="table-data__item">
-            Атмосферное давление: {dataForecast.current.pressure_mb} гПа
+            {i18n.get('wind_speed')}
+            {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)}
+            {i18n.get('m_s')}
+            {i18n.get('from')}
+            {windDirection}
           </td>
           <td class="table-data__item">
-            Видимость: {dataForecast.current.vis_km} км
+            {i18n.get('gusts_of_wind')}
+            {((dataForecast.current.gust_kph * 10) / 36).toFixed(2)}
+            {i18n.get('m_s')}
           </td>
         </tr>
         <tr>
           <td class="table-data__item">
-            Вероятность дождя: {dataForecast.forecast.forecastday[0].day
-              .daily_chance_of_rain} %
+            {i18n.get('atmospheric_pressure')}
+            {dataForecast.current.pressure_mb}
+            {i18n.get('h_pa')}
           </td>
           <td class="table-data__item">
-            Вероятность снега: {dataForecast.forecast.forecastday[0].day
-              .daily_chance_of_snow} %
+            {i18n.get('visibility')}
+            {dataForecast.current.vis_km}
+            {i18n.get('km')}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-data__item">
+            {i18n.get('probability_of_rain')}
+            {dataForecast.forecast.forecastday[0].day.daily_chance_of_rain} %
+          </td>
+          <td class="table-data__item">
+            {i18n.get('probability_of_snow')}
+            {dataForecast.forecast.forecastday[0].day.daily_chance_of_snow} %
           </td>
         </tr>
       </tbody>
