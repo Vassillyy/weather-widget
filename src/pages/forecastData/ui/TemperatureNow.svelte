@@ -23,7 +23,7 @@
   let timeLeft: Duration | undefined = $state()
   /** Текст подсказки */
   let textTip = $derived(
-    disabled
+    disabled && timeLeft
       ? i18n.get('update_in') + ' ' + timeLeft?.toFormat('mm:ss')
       : i18n.get('update_data')
   )
