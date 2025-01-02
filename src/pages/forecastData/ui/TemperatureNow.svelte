@@ -10,7 +10,7 @@
   type Props = {
     dataForecast: Forecast | undefined
     error: boolean
-    update: (data: Forecast) => void
+    update: (data: Forecast | undefined) => void
   }
 
   let {dataForecast, error, update}: Props = $props()
@@ -32,6 +32,7 @@
   const updateData = async (): Promise<void> => {
     rotation += 180
     disabled = true
+    update(undefined)
     const data = await searchForecast($chosenCity)
     update(data)
     timeLeft = Duration.fromObject({minutes: 0.2})

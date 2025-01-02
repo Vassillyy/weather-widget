@@ -29,6 +29,7 @@
 
   $effect(() => {
     if ($chosenCity) {
+      dataForecast = undefined
       getDataForecast()
     }
   })
@@ -42,7 +43,7 @@
    * Обрабатывает отображение ошибки геолокации в зависимости от наличия города.
    * @param city - Название города.
    */
-  const getErrorGeo = (city?: string) => {
+  const getErrorGeo = (city?: string): void => {
     if (city) {
       showError = false
       clearTimeout(errorTimer)
@@ -90,7 +91,7 @@
       <TemperatureNow
         {dataForecast}
         {error}
-        update={(data: Forecast) => (dataForecast = data)}
+        update={(data: Forecast | undefined) => (dataForecast = data)}
       />
       {#if dataForecast}
         <div class="forecast-data__block-geo">

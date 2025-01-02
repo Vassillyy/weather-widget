@@ -1,23 +1,23 @@
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
-import {i18n} from '@/shared/i18n'
-import type {CityData} from '../model/CityData'
+import type {City} from '../model/City'
 
 /** Переводим город на нужный нам язык */
 export const translateCity = async (
   lat: number,
-  lon: number
+  lon: number,
+  lang: string
 ): Promise<string> => {
-  const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=${i18n.currentLanguage}`
+  const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&lang=${lang}&apiKey=d27753f9ddea41d1abc33eaaa7aa7f2f`
 
   try {
-    const response: AxiosResponse<CityData> = await axios.get(url)
+    const response: AxiosResponse<City> = await axios.get(url)
 
     if (response.status !== 200) {
       throw new Error(`Ошибка: ${response.status}`)
     }
 
-    return response.data.address.city
+    return response.data.features[0].properties.city
   } catch (error) {
     console.error(error)
     throw error
