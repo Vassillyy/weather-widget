@@ -33,5 +33,6 @@ export const en: {[key: string]: string} = {
   south_west: 'SW',
   north_west: 'NW',
   update_data: 'Update data',
-  update_in: 'Update in:'
+  update_in: 'Update in:',
+  allow_geo: 'Allow geolocation'
 }

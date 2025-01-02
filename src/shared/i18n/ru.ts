@@ -33,5 +33,6 @@ export const ru: {[key: string]: string} = {
   south_west: 'ЮЗ',
   north_west: 'СЗ',
   update_data: 'Обновить данные',
-  update_in: 'Обновите через:'
+  update_in: 'Обновите через:',
+  allow_geo: 'Разрешите геопозицию'
 }
