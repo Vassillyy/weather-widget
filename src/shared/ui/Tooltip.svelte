@@ -51,7 +51,6 @@
 <div class="tooltip" bind:this={tooltipElement}>
   {@render children()}
   {#if tip}
-    <!-- a11y_click_events_have_key_events -->
     <div
       class="tooltip__tip"
       role="button"

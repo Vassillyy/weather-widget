@@ -13,4 +13,5 @@
   --light-red: rgb(255, 102, 102);
   --white-transparent: rgba(255, 255, 255, 0.2);
   --gradient-light-gray: linear-gradient(to bottom, #d1d1d1, #b0b0b0);
+  --dark-turquoise: rgb(0, 206, 209);
 }

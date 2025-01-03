@@ -3,6 +3,7 @@
   import {chosenCity} from '@/entities/city'
   import {searchMyCity} from '@/entities/city'
   import {TableData} from '@/features/tableData'
+  import {Tabs} from '@/features/tabs'
   import {colors} from '@/shared/lib'
   import {Button} from '@/shared/ui'
   import {i18n} from '@/shared/i18n'
@@ -107,7 +108,17 @@
       {/if}
     </div>
   </div>
-  <div class="forecast-data__tab-content"></div>
+  <div class="forecast-data__tab-content">
+    <Tabs>
+      {#snippet today()}
+        <div>11111</div>
+      {/snippet}
+
+      {#snippet future()}
+        <div>222</div>
+      {/snippet}
+    </Tabs>
+  </div>
 </div>
 
 <style lang="sass">

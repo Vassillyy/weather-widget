@@ -34,5 +34,7 @@ export const en: {[key: string]: string} = {
   north_west: 'NW',
   update_data: 'Update data',
   update_in: 'Update in:',
-  allow_geo: 'Allow geolocation'
+  allow_geo: 'Allow geolocation',
+  forecast_today: 'Forecast for today',
+  forecast_future: 'Forecast for 3 day'
 }
