@@ -43,6 +43,10 @@
     titleCard = data.titleCard
   }
 
+  $effect(() => {
+    if ($tempUnit) getData()
+  })
+
   onMount(() => {
     updateWidth()
     getData()
