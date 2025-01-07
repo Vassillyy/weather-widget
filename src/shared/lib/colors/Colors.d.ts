@@ -7,7 +7,9 @@ export type Colors = {
   BLUE_60: string
   LIGHT_BLUE: string
   PURPLE: string
+  LIGHT_CYAN: string
   GRAY_90: string
+  GRAY_60: string
   GRAY_30: string
   GRAY_05: string
   YELLOW: string

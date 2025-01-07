@@ -22,6 +22,7 @@
   /** Направление ветра */
   let windDirection: string | undefined = $state()
 
+  /** Эффект для обновления направления ветра при обновлении данных погоды */
   $effect(() => {
     if (dataForecast) {
       deg = dataForecast.current.wind_degree
@@ -123,7 +124,7 @@
     .table-data__item
       font-size: 18px
 
-  @media (max-width: 810px)
+  @media (max-width: 825px)
     .table-data__item
       display: block
 

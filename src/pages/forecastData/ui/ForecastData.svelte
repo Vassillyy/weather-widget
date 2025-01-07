@@ -9,6 +9,7 @@
   import {i18n} from '@/shared/i18n'
   import TemperatureNow from './TemperatureNow.svelte'
   import ForecastDataHeader from './ForecastDataHeader.svelte'
+  import ListLittleCards from './ListLittleCards.svelte'
   import {getForecastForCity} from '../model/getForecastForCity'
 
   /** Данные о прогнозе */
@@ -22,12 +23,14 @@
   /** Идентификатор таймера для скрытия сообщения об ошибке геолокации */
   let errorTimer: ReturnType<typeof setTimeout> | undefined = $state()
 
+  /** Эффект для обновления состояния дня или ночи при обновлении данных погоды */
   $effect(() => {
     if (dataForecast) {
       isDay = !!dataForecast.current.is_day
     }
   })
 
+  /**  Эффект для получения данных о прогнозе при изменении выбранного города */
   $effect(() => {
     if ($chosenCity) {
       dataForecast = undefined
@@ -78,11 +81,17 @@
   }
 </script>
 
+<svelte:head>
+  <title>{i18n.get('logo')}</title>
+  <meta name="description" content="Аналитика погоды" />
+</svelte:head>
+
 <div class="forecast-data">
   <div
     class="forecast-data__content"
     class:forecast-data__content_day={dataForecast && isDay}
     class:forecast-data__content_night={dataForecast && !isDay}
+    class:forecast-data__content_error={error}
   >
     <div class="forecast-data__main">
       <ForecastDataHeader {dataForecast} {error} />
@@ -92,7 +101,7 @@
       <TemperatureNow
         {dataForecast}
         {error}
-        update={(data: Forecast | undefined) => (dataForecast = data)}
+        update={(data) => (dataForecast = data)}
       />
       {#if dataForecast}
         <div class="forecast-data__block-geo">
@@ -111,7 +120,7 @@
   <div class="forecast-data__tab-content">
     <Tabs>
       {#snippet today()}
-        <div>11111</div>
+        <ListLittleCards {dataForecast} {error} />
       {/snippet}
 
       {#snippet future()}
@@ -134,10 +143,14 @@
       border-radius: 40px
       color: var(--white)
       background-image: var(--gradient-light-gray)
+      &_error
+        border: 4px solid red
       &_day
         background-image: url("/static/sun.jpg")
+        border: none
       &_night
         background-image: url("/static/night.jpg")
+        border: none
     &__main
       display: flex
       flex-direction: column

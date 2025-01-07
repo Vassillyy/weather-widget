@@ -21,10 +21,9 @@
   /** Время до события */
   let time: string | undefined = $state()
 
+  /** Эффект для получения данных о времени восхода и заката при обновлении данных погоды */
   $effect(() => {
-    if (dataForecast) {
-      getDataAstrology()
-    }
+    getDataAstrology()
   })
 
   /**
@@ -35,6 +34,7 @@
   const getDataAstrology = async () => {
     if (dataForecast) {
       const sunData = await fillTime(dataForecast)
+
       sunrise = sunData.sunrise
       sunset = sunData.sunset
       sunriseNext = sunData.sunriseNext
@@ -50,12 +50,12 @@
 
         if (time === '00:00:00') {
           clearInterval(timeId)
-          getDataAstrology()
+          timeId = setTimeout(getDataAstrology, 1000)
           return
         }
       }
 
-      update()
+      await update()
       if (timeId) {
         clearInterval(timeId)
       }

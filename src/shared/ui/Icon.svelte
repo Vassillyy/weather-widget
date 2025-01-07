@@ -21,6 +21,10 @@
   const colorSearch: string = $derived(
     $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
   )
+  /** Цвет стрелок */
+  const colorArrow = $derived(
+    $backgroundColor === colors.WHITE ? colors.PURPLE : colors.GRAY_90
+  )
 </script>
 
 <div class="icon">
@@ -244,7 +248,26 @@
           d="m5.2 11.9 1.6 1.6 1.4-1.4-4-4-4 4 1.4 1.4 1.6-1.6c.2 4.5 3.9 8.1 8.5 8.1h.3v-2h-.3c-3.5 0-6.3-2.7-6.5-6.1z"
         />
       </g>
-    </svg>{/if}
+    </svg>
+  {:else if name === 'arrowLeft'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 476 476">
+      <g transform="rotate(180 238 238)">
+        <path
+          d="m190.311 0 238.336 238.337-238.336 238.337-28.285-28.284 210.053-210.052-210.053-210.052zm-114 0 238.336 238.337-238.336 238.337-28.284-28.284 210.053-210.052-210.054-210.053z"
+          fill={colorArrow}
+        />
+      </g>
+    </svg>
+  {:else if name === 'arrowRight'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 476 476">
+      <g>
+        <path
+          d="m190.311 0 238.336 238.337-238.336 238.336-28.285-28.284 210.053-210.052-210.053-210.052zm-114 0 238.336 238.337-238.336 238.336-28.284-28.284 210.053-210.052-210.054-210.053z"
+          fill={colorArrow}
+        />
+      </g>
+    </svg>
+  {/if}
 </div>
 
 <style lang="sass">

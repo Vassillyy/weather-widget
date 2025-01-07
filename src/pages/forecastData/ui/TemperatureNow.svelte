@@ -3,9 +3,10 @@
   import type {Forecast} from '@/entities/weatherForecast'
   import {chosenCity} from '@/entities/city'
   import {searchForecast} from '@/entities/weatherForecast'
-  import {gradientColor, tempUnit, getCodeIconNow} from '@/shared/lib'
+  import {gradientColor, tempUnit} from '@/shared/lib'
   import {ProgressBar, Icon, Tooltip} from '@/shared/ui'
   import {i18n} from '@/shared/i18n'
+  import {getCodeIconNow} from '../model/getCodeIconNow'
 
   type Props = {
     dataForecast: Forecast | undefined

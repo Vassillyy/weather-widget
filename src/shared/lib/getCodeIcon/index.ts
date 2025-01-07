@@ -5,7 +5,7 @@ import type {Conditions} from './Conditions'
  * @param iconText - цифровой код иконки.
  * @param isDay - день или ночь.
  */
-const getCodeIcon = (iconText: string, isDay: boolean): string => {
+export const getCodeIcon = (iconText: string, isDay: boolean): string => {
   let code: string | undefined
 
   const forecastConditions: Conditions = {
@@ -84,36 +84,12 @@ const getCodeIcon = (iconText: string, isDay: boolean): string => {
   return code + (isDay ? 'd' : 'n')
 }
 
-/**
- * Получаем код иконки для погоды на данный момент.
- * @param data - данные о погоде.
- */
-export const getCodeIconNow = (data: any): string => {
-  const iconText: string = data.current.condition.icon
-    .split('/')
-    .pop()
-    .slice(0, -4)
-  const isDay: boolean = !!data.current.is_day
-
-  return getCodeIcon(iconText, isDay)
-}
-
 /*export const getCodeIconDays = (data: any, index: number): string => {
   const iconText: string = data.forecast.forecastday[index].day.condition.icon
     .split('/')
     .pop()
     .slice(0, -4)
   const isDay: boolean = !!data.current.is_day
-
-  return getСodeIcon(iconText, isDay)
-}
-
-export const getCodeIconHourly = (data: any, index: number): string => {
-  const iconText: string = data.forecast.forecastday[0].hour[index].condition.icon
-    .split('/')
-    .pop()
-    .slice(0, -4)
-  const isDay: boolean = data.forecast.forecastday[0].hour[index].is_day
 
   return getСodeIcon(iconText, isDay)
 }*/

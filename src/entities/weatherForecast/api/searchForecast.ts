@@ -1,7 +1,6 @@
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
-// TODO: Сущность не может использовать другую сущность
-import {translateCity} from '@/entities/city'
+import {translateCity} from '@/entities/city/@x/translateCity'
 import {i18n} from '@/shared/i18n'
 import type {Forecast} from '../model/Forecast'
 
@@ -16,10 +15,10 @@ export const searchForecast = async (city: string): Promise<Forecast> => {
       throw new Error(`Ошибка: ${response.status}`)
     }
 
-    const lat = response.data.location.lat
-    const lon = response.data.location.lon
+    const lat: number = response.data.location.lat
+    const lon: number = response.data.location.lon
 
-    const newCity = await translateCity(lat, lon, i18n.currentLanguage)
+    const newCity: string = await translateCity(lat, lon, i18n.currentLanguage)
 
     const newUrl = `http://api.weatherapi.com/v1/forecast.json?key=49d4f22317144367a50192730242909&q=${newCity}&lang=${i18n.currentLanguage}&days=3`
 

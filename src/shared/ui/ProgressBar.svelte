@@ -1,5 +1,8 @@
 <script lang="ts">
   import {onMount} from 'svelte'
+  import {colors} from '@/shared/lib'
+
+  let {color = colors.WHITE}: {color?: string} = $props()
 
   /** Угол вращения элемента в градусах */
   let deg = $state(0)
@@ -21,11 +24,11 @@
   }
 
   onMount(() => {
-    if (element) {
-      updateWidth()
-    }
+    updateWidth()
 
-    window.addEventListener('resize', updateWidth)
+    window.addEventListener('resize', () => {
+      updateWidth()
+    })
 
     return () => {
       clearInterval(interval)
@@ -37,7 +40,9 @@
 <div
   bind:this={element}
   class="progress-bar"
-  style="rotate: {deg}deg; border-width: {widthElement! / 25}px"
+  style={`rotate: ${deg}deg; border-bottom-color: ${color}; border-right-color: ${color}; border-width: ${
+    widthElement ? Math.floor(widthElement / 35) : 7
+  }px`}
 ></div>
 
 <style lang="sass">
@@ -45,8 +50,7 @@
     box-sizing: border-box
     aspect-ratio: 1 / 1
     border-radius: 50%
-    border-top: solid transparent
-    border-bottom: solid var(--white)
-    border-right: solid var(--white)
-    border-left: solid transparent
+    border-top-color: transparent
+    border-left-color: transparent
+    border-style: solid
 </style>

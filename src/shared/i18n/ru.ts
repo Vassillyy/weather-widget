@@ -36,5 +36,6 @@ export const ru: {[key: string]: string} = {
   update_in: 'Обновите через:',
   allow_geo: 'Разрешите геопозицию',
   forecast_today: 'Прогноз на сегодня',
-  forecast_future: 'Прогноз на 3 дня'
+  forecast_future: 'Прогноз на 3 дня',
+  now: 'Сейчас'
 }
