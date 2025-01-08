@@ -3,6 +3,7 @@
   import type {Forecast} from '@/entities/weatherForecast'
   import {gradientColor, tempUnit} from '@/shared/lib'
   import {Icon} from '@/shared/ui'
+  import {i18n} from '@/shared/i18n'
   import {getCodeIconDays} from '../model/getCodeIconDay'
   import {getForecastBigCardData} from '../model/getForecastBigCard'
 
@@ -74,7 +75,11 @@
 <div class="big-card" bind:this={element} style="background: {$gradientColor}">
   <div class="big-card__header">
     <div>
-      {index === 0 ? 'Сегодня' : index === 1 ? 'Завтра' : 'Через 2 дня'}
+      {index === 0
+        ? i18n.get('today')
+        : index === 1
+          ? i18n.get('tomorrow')
+          : i18n.get('in_two_days')}
     </div>
     <div>{day}</div>
   </div>
