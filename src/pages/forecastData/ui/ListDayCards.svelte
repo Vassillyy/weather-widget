@@ -1,9 +1,8 @@
 <script lang="ts">
-  import {DateTime} from 'luxon'
   import type {Forecast} from '@/entities/weatherForecast'
   import {Icon, ProgressBar} from '@/shared/ui'
   import {colors, backgroundColor} from '@/shared/lib'
-  import LittleCard from './LittleCard.svelte'
+  import DayCard from './DayCard.svelte'
 
   type Props = {
     dataForecast: Forecast | undefined
@@ -18,9 +17,9 @@
   let currentIndex: number = $state(0)
   /** Щаг при нажатии на кнопку сдвига карточек */
   let step: number = $state(0)
-
+  /** Ширина списка карточек */
   let widthListCards: number | undefined = $state()
-
+  /** Количество видимых карточек */
   let visibilityCards: number | undefined = $state()
 
   /** Цвет фона кнопки */
@@ -31,6 +30,20 @@
   const backgroundColorProgressBar = $derived(
     $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
   )
+
+  /** Эффект для обновления значения шага при изменении ширины карточки */
+  $effect(() => {
+    if (widthCard) {
+      step = currentIndex * -(widthCard + 5)
+    }
+  })
+
+  /** Эффект для вычисления видимости карточек на основе ширины списка карточек */
+  $effect(() => {
+    if (widthListCards && widthCard) {
+      visibilityCards = Math.floor(widthListCards / +widthCard.toFixed(0))
+    }
+  })
 
   /**
    * Навигация по элементам с помощью клавишь.
@@ -43,38 +56,14 @@
     if (isRightArrow && currentIndex < 24 - visibilityCards!) currentIndex++
     else if (isLeftArrow && currentIndex > 0) currentIndex--
   }
-
-  /** Эффект для обновления значения шага при изменении ширины карточки */
-  $effect(() => {
-    if (widthCard) {
-      step = currentIndex * -(widthCard + 5)
-    }
-  })
-
-  /** Эффект для вычисления видимости карточек на основе ширины списка карточек */
-  $effect(() => {
-    if (widthListCards && widthCard) {
-      visibilityCards = Math.floor(widthListCards / widthCard)
-    }
-  })
-
-  /** Эффект для обновления текущего индекса на основе видимости карточек */
-  $effect(() => {
-    if (visibilityCards) {
-      currentIndex =
-        DateTime.local().hour > 24 - visibilityCards
-          ? 24 - visibilityCards
-          : DateTime.local().hour
-    }
-  })
 </script>
 
 <svelte:window on:keydown={(e) => navigationWithArrows(e)} />
 
-<div class="list-little-cards">
+<div class="list-big-cards">
   {#if dataForecast}
     <button
-      class="list-little-cards__button list-little-cards__button_left"
+      class="list-big-cards__button list-big-cards__button_left"
       style="background-color: {backgroundColorButton}"
       onclick={() => (currentIndex -= 1)}
       disabled={currentIndex === 0}
@@ -85,25 +74,25 @@
     </button>
 
     <button
-      class="list-little-cards__button list-little-cards__button_right"
+      class="list-big-cards__button list-big-cards__button_right"
       style="background-color: {backgroundColorButton}"
       onclick={() => (currentIndex += 1)}
-      disabled={currentIndex >= 24 - (visibilityCards ?? 6)}
+      disabled={!!visibilityCards && currentIndex >= 3 - visibilityCards}
     >
-      {#if currentIndex < 24 - (visibilityCards ?? 6)}
+      {#if visibilityCards && currentIndex < 3 - visibilityCards}
         <Icon name="arrowRight" />
       {/if}
     </button>
 
-    <div class="list-little-cards__active">
+    <div class="list-big-cards__active">
       <div
-        class="list-little-cards__list"
+        class="list-big-cards__list"
         bind:clientWidth={widthListCards}
         style={`transform: translateX(${step}px)`}
       >
-        {#each Array.from({length: 24}) as _, index}
-          <div class="list-little-cards__card">
-            <LittleCard
+        {#each Array.from({length: 3}) as _, index}
+          <div class="list-big-cards__card">
+            <DayCard
               update={(width) => (widthCard = width)}
               {dataForecast}
               {index}
@@ -113,22 +102,20 @@
       </div>
     </div>
   {:else if error}
-    <div style="width: 100%;display: flex;justify-content: center;">
-      <img
-        style="width: 80%; border: 4px solid red; border-radius: 30px"
-        src="static/errorTab.jpg"
-        alt="Иконка"
-      />
-    </div>
+    <img
+      class="list-big-cards__image-error"
+      src="static/errorTab.jpg"
+      alt="Иконка"
+    />
   {:else}
-    <div class="list-little-cards_loading">
+    <div class="list-big-cards_loading">
       <ProgressBar color={backgroundColorProgressBar} />
     </div>
   {/if}
 </div>
 
 <style lang="sass">
-  .list-little-cards
+  .list-big-cards
     position: relative
     display: flex
     justify-content: center
@@ -157,22 +144,25 @@
       width: calc(100% - 70px)
     &__list
       display: flex
+      align-items: stretch
       gap: 5px
       transition: transform 0.5s ease-out
     &__card
-      width: calc((100% - 25px) / 6)
+      width: calc((100% - 10px) / 3)
+      display: flex
+      flex-direction: column
       flex-shrink: 0
+    &__image-error
+      width: 80%
+      border: 4px solid red
+      border-radius: 30px
 
   @media (max-width: 1150px)
-    .list-little-cards__card
-      width: calc((100% - 20px) / 5)
-
-  @media (max-width: 950px)
-    .list-little-cards__card
-      width: calc((100% - 15px) / 4)
+    .list-big-cards__card
+        width: calc((100% - 5px) / 2)
 
   @media (max-width: 800px)
-    .list-little-cards
+    .list-big-cards
       &__button
         width: 20px
         height: 60px
@@ -181,7 +171,7 @@
       &__button_right
         right: 10px
 
-  @media (max-width: 650px)
-    .list-little-cards__card
-      width: calc((100% - 10px) / 3)
+  @media (max-width: 630px)
+    .list-big-cards__card
+        width: calc(100%)
 </style>

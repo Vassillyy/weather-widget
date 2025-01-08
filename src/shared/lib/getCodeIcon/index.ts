@@ -83,13 +83,3 @@ export const getCodeIcon = (iconText: string, isDay: boolean): string => {
   )
   return code + (isDay ? 'd' : 'n')
 }
-
-/*export const getCodeIconDays = (data: any, index: number): string => {
-  const iconText: string = data.forecast.forecastday[index].day.condition.icon
-    .split('/')
-    .pop()
-    .slice(0, -4)
-  const isDay: boolean = !!data.current.is_day
-
-  return getСodeIcon(iconText, isDay)
-}*/

@@ -12,7 +12,7 @@ type ReturnData = {
 }
 
 /** Получаем данные о погоде для карточки по часам */
-export const getDataForecast = (
+export const getForecastLittleCard = (
   dataForecast: Forecast,
   index: number
 ): ReturnData => {

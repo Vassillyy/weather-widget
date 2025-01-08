@@ -9,7 +9,8 @@
   import {i18n} from '@/shared/i18n'
   import TemperatureNow from './TemperatureNow.svelte'
   import ForecastDataHeader from './ForecastDataHeader.svelte'
-  import ListLittleCards from './ListLittleCards.svelte'
+  import ListHourCards from './ListHourCards.svelte'
+  import ListDayCards from './ListDayCards.svelte'
   import {getForecastForCity} from '../model/getForecastForCity'
 
   /** Данные о прогнозе */
@@ -120,11 +121,11 @@
   <div class="forecast-data__tab-content">
     <Tabs>
       {#snippet today()}
-        <ListLittleCards {dataForecast} {error} />
+        <ListHourCards {dataForecast} {error} />
       {/snippet}
 
       {#snippet future()}
-        <div>222</div>
+        <ListDayCards {dataForecast} {error} />
       {/snippet}
     </Tabs>
   </div>

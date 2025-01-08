@@ -3,8 +3,8 @@
   import type {Forecast} from '@/entities/weatherForecast'
   import {gradientColor, tempUnit} from '@/shared/lib'
   import {i18n} from '@/shared/i18n'
-  import {getDataForecast} from '../model/getDataForecast'
   import {getCodeIconHours} from '../model/getCodeIconHours'
+  import {getForecastLittleCard} from '../model/getForecastLittleCard'
 
   type Props = {
     dataForecast: Forecast
@@ -34,15 +34,17 @@
       window.removeEventListener('resize', updateWidth)
     }
   }
+
   /** Получаем данные для карточки погоды */
-  const getData = () => {
-    const data = getDataForecast(dataForecast, index)
+  const getData = (): void => {
+    const data = getForecastLittleCard(dataForecast, index)
 
     filtTemp = data.filtTemp
     temp = data.temp
     titleCard = data.titleCard
   }
 
+  /** Эффект для обновления данных карточки при изменении единицы измерения температуры */
   $effect(() => {
     if ($tempUnit) getData()
   })
