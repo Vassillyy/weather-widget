@@ -1,8 +1,8 @@
 <script lang="ts">
   import type {Forecast} from '@/entities/weatherForecast'
+  import {TableData} from '@/entities/weatherForecast'
   import {chosenCity} from '@/entities/city'
   import {searchMyCity} from '@/entities/city'
-  import {TableData} from '@/features/tableData'
   import {Tabs} from '@/features/tabs'
   import {colors} from '@/shared/lib'
   import {Button} from '@/shared/ui'
@@ -74,7 +74,6 @@
       city = await searchMyCity()
       chosenCity.set(city!)
     } catch (error) {
-      console.error(error)
       throw error
     } finally {
       getErrorGeo(city)
