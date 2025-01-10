@@ -153,6 +153,10 @@
     &__button
       z-index: 2
 
+  @media (max-width: 1020px)
+    .search__input_active
+      width: 230px
+
   @media (max-width: 760px)
     .search
       &__input

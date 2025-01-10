@@ -62,27 +62,25 @@
 
 <div class="list-big-cards">
   {#if dataForecast}
-    <button
-      class="list-big-cards__button list-big-cards__button_left"
-      style="background-color: {backgroundColorButton}"
-      onclick={() => (currentIndex -= 1)}
-      disabled={currentIndex === 0}
-    >
-      {#if currentIndex !== 0}
+    {#if currentIndex !== 0}
+      <button
+        class="list-big-cards__button list-big-cards__button_left"
+        style="background-color: {backgroundColorButton}"
+        onclick={() => (currentIndex -= 1)}
+      >
         <Icon name="arrowLeft" />
-      {/if}
-    </button>
+      </button>
+    {/if}
 
-    <button
-      class="list-big-cards__button list-big-cards__button_right"
-      style="background-color: {backgroundColorButton}"
-      onclick={() => (currentIndex += 1)}
-      disabled={!!visibilityCards && currentIndex >= 3 - visibilityCards}
-    >
-      {#if visibilityCards && currentIndex < 3 - visibilityCards}
+    {#if visibilityCards && currentIndex < 3 - visibilityCards}
+      <button
+        class="list-big-cards__button list-big-cards__button_right"
+        style="background-color: {backgroundColorButton}"
+        onclick={() => (currentIndex += 1)}
+      >
         <Icon name="arrowRight" />
-      {/if}
-    </button>
+      </button>
+    {/if}
 
     <div class="list-big-cards__active">
       <div
@@ -154,7 +152,7 @@
       flex-shrink: 0
     &__image-error
       width: 80%
-      border: 4px solid red
+      border: 4px solid var(--light-red)
       border-radius: 30px
 
   @media (max-width: 1150px)

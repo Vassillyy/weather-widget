@@ -144,7 +144,7 @@
       color: var(--white)
       background-image: var(--gradient-light-gray)
       &_error
-        border: 4px solid red
+        border: 4px solid var(--light-red)
       &_day
         background-image: url("/static/sun.jpg")
         border: none

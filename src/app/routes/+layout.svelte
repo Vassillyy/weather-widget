@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {Snippet} from 'svelte'
   import {Header} from '@/widgets/header'
+  import {Footer} from '@/widgets/footer'
   import {PageContainer} from '@/shared/ui'
   import {backgroundColor} from '@/shared/lib'
   import '../global.css'
@@ -12,6 +13,7 @@
   <PageContainer>
     <Header />
     {@render children()}
+    <Footer />
   </PageContainer>
 </div>
 

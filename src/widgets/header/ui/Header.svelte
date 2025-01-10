@@ -38,8 +38,13 @@
     display: flex
     justify-content: space-between
     align-items: center
-    padding-top: 15px
+    padding: 15px 10px 10px
     margin-bottom: 20px
+    border-style: solid
+    border-width: 0.2px
+    border-color: var(--light-gray)
+    border-top: none
+    border-radius: 0 0 30px 30px
     &__block-settings
       display: flex
       align-items: center

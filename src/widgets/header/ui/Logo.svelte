@@ -24,7 +24,7 @@
       font-weight: 900
       font-size: 55px
 
-  @media (max-width: 1050px)
+  @media (max-width: 1070px)
     .logo__text
       font-size: 50px
 
