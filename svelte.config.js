@@ -10,7 +10,7 @@ const config = {
     files: {
       routes: 'src/app/routes',
       lib: 'src',
-      appTemplate: 'src/app/app.html',
+      appTemplate: 'index.html',
       assets: 'public'
     },
     alias: {
