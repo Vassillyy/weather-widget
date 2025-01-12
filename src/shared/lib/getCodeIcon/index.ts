@@ -59,7 +59,7 @@ export const getCodeIcon = (iconText: string, isDay: boolean): string => {
   } as const
 
   ;(Object.keys(forecastConditions) as Array<keyof Conditions>).forEach(
-    (condition: keyof Conditions): void => {
+    (condition): void => {
       if (forecastConditions[condition].includes(iconText)) {
         if (condition === 'fog') {
           code = '07'

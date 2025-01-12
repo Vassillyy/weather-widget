@@ -17,9 +17,11 @@ export const searchMyCity = async (): Promise<string | undefined> => {
       throw new Error(`Ошибка: ${response.status}`)
     }
 
-    const address = response.data.address
-
-    return address.city || address.town || address.village
+    return (
+      response.data.address.city ||
+      response.data.address.town ||
+      response.data.address.village
+    )
   } catch (error) {
     console.error(error)
     throw error

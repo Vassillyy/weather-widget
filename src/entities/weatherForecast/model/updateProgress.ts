@@ -1,12 +1,12 @@
-import {DateTime} from 'luxon'
+import {DateTime, Duration} from 'luxon'
 
-type SunData = {
+type Parametrs = {
   sunrise: DateTime
   sunset: DateTime
   sunriseNext: DateTime
 }
 
-type ProgressData = {
+type ReturnData = {
   progress: number
   time: string
 }
@@ -16,23 +16,25 @@ export const updateProgress = ({
   sunrise,
   sunset,
   sunriseNext
-}: SunData): ProgressData => {
-  const nowDate = DateTime.now()
+}: Parametrs): ReturnData => {
+  const nowDate: DateTime = DateTime.now()
 
-  let progress = 0
-  let time = ''
+  let progress: number = 0
+  let time: string = ''
 
   if (nowDate >= sunrise && nowDate <= sunset) {
     progress =
       (nowDate.diff(sunrise).as('milliseconds') /
         sunset.diff(sunrise).as('milliseconds')) *
       100
-    const duration = sunset.diff(nowDate)
-    const hours = Math.floor(duration.as('hours')).toString().padStart(2, '0')
-    const minutes = Math.floor(duration.as('minutes') % 60)
+    const duration: Duration = sunset.diff(nowDate)
+    const hours: string = Math.floor(duration.as('hours'))
       .toString()
       .padStart(2, '0')
-    const seconds = Math.floor(duration.as('seconds') % 60)
+    const minutes: string = Math.floor(duration.as('minutes') % 60)
+      .toString()
+      .padStart(2, '0')
+    const seconds: string = Math.floor(duration.as('seconds') % 60)
       .toString()
       .padStart(2, '0')
     time = `${hours}:${minutes}:${seconds}`
@@ -43,12 +45,14 @@ export const updateProgress = ({
           sunriseNext.diff(sunset).as('milliseconds')
       ) * 100
 
-    const duration = sunriseNext.diff(nowDate)
-    const hours = Math.floor(duration.as('hours')).toString().padStart(2, '0')
-    const minutes = Math.floor(duration.as('minutes') % 60)
+    const duration: Duration = sunriseNext.diff(nowDate)
+    const hours: string = Math.floor(duration.as('hours'))
       .toString()
       .padStart(2, '0')
-    const seconds = Math.floor(duration.as('seconds') % 60)
+    const minutes: string = Math.floor(duration.as('minutes') % 60)
+      .toString()
+      .padStart(2, '0')
+    const seconds: string = Math.floor(duration.as('seconds') % 60)
       .toString()
       .padStart(2, '0')
 

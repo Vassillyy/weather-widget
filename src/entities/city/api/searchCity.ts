@@ -13,9 +13,7 @@ export const searchCity = async (
       throw new Error(`Ошибка: ${response.status}`)
     }
 
-    const data = response.data.features
-
-    for (let item of data) {
+    for (let item of response.data.features) {
       if (Object.is(item.properties.city, value)) {
         return item.properties.city
       }

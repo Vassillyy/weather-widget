@@ -2,6 +2,7 @@ import {DateTime} from 'luxon'
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
 import type {Forecast} from '@/entities/weatherForecast'
+import type {Day} from './Day'
 
 type Parameters = {
   data: Forecast
@@ -24,7 +25,7 @@ export const getOldValueSunset = async ({
       throw new Error(`Ошибка: ${response.status}`)
     }
 
-    const forecast = response.data.forecast.forecastday
+    const forecast: Day[] = response.data.forecast.forecastday
 
     return DateTime.fromFormat(forecast[0].astro.sunset, 'hh:mm a', {
       zone: timezone

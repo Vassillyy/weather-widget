@@ -1,19 +1,20 @@
 import {DateTime} from 'luxon'
 import type {Forecast} from '@/entities/weatherForecast'
 import {getOldValueSunset} from './getOldValueSunset'
+import type {Day} from './Day'
 
-type SunData = {
+type ReturnData = {
   sunrise: DateTime
   sunset: DateTime
   sunriseNext: DateTime
 }
 
 /** Получение времени захода и восхода солнца */
-export const fillTime = async (data: Forecast): Promise<SunData> => {
-  const timezone = data.location.tz_id
-  const localTimezone = DateTime.local().zoneName
-  const nowMoment = DateTime.now().setZone(timezone)
-  const forecast = data.forecast.forecastday
+export const fillTime = async (data: Forecast): Promise<ReturnData> => {
+  const timezone: string = data.location.tz_id
+  const localTimezone: string = DateTime.local().zoneName
+  const nowMoment: DateTime = DateTime.now().setZone(timezone)
+  const forecast: Day[] = data.forecast.forecastday
 
   let sunrise: DateTime | undefined
   let sunset: DateTime | undefined
