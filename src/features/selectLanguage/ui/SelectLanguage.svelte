@@ -3,6 +3,7 @@
   import {i18n} from '@/shared/i18n'
   import {listLanguages} from '../model/listLanguages'
   import type {Language} from '../model/Language'
+  import {backgroundColor, colors} from '@/shared/lib'
 
   /** Выбранный язык*/
   let seclectedLanguage: Language = $state(
@@ -28,7 +29,7 @@
 
 <div class="select-language">
   <Tooltip
-    theme="tip-grey"
+    theme={$backgroundColor === colors.WHITE ? 'tip-white' : 'tip-grey'}
     trigger="click"
     arrow={false}
     placement="bottom-end"
@@ -45,9 +46,9 @@
             class="select-language__item"
             onclick={() => changeLanguage(language)}
           >
-            <div class="select-language__icon">
+            <span class="select-language__icon">
               <Icon name={language.value} />
-            </div>
+            </span>
             <span class="select-language__label">
               {language.name}
             </span>
@@ -90,4 +91,12 @@
         height: 30px
       &__label
         font-size: 18px
+
+  @media (max-width: 450px)
+    .select-language
+      &__icon
+        width: 25px
+        height: 25px
+      &__label
+        font-size: 15px
 </style>

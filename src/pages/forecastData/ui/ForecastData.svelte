@@ -4,8 +4,8 @@
   import {chosenCity} from '@/entities/city'
   import {searchMyCity} from '@/entities/city'
   import {Tabs} from '@/features/tabs'
-  import {colors} from '@/shared/lib'
-  import {Button} from '@/shared/ui'
+  import {colors, backgroundColor} from '@/shared/lib'
+  import {Button, Tooltip} from '@/shared/ui'
   import {i18n} from '@/shared/i18n'
   import TemperatureNow from './TemperatureNow.svelte'
   import ForecastDataHeader from './ForecastDataHeader.svelte'
@@ -19,10 +19,8 @@
   let error: boolean = $state(false)
   /** День или ночь */
   let isDay: boolean | undefined = $state()
-  /** Флаг, определяющий, отображать ли сообщение об ошибке геолокации */
-  let showError = $state(false)
-  /** Идентификатор таймера для скрытия сообщения об ошибке геолокации */
-  let errorTimer: ReturnType<typeof setTimeout> | undefined = $state()
+  /** Текст тултипа */
+  let textTooltip: string = $state('')
 
   /** Эффект для обновления состояния дня или ночи при обновлении данных погоды */
   $effect(() => {
@@ -36,47 +34,33 @@
     if ($chosenCity) {
       dataForecast = undefined
       getDataForecast()
+      textTooltip = ''
     }
   })
 
   /** Получение данных через деструктурицацию */
   const getDataForecast = async () => {
+    error = false
     ;({dataForecast, error} = await getForecastForCity($chosenCity))
-  }
-
-  /**
-   * Обрабатывает отображение ошибки геолокации в зависимости от наличия города.
-   * @param city - Название города.
-   */
-  const getErrorGeo = (city?: string): void => {
-    if (city) {
-      showError = false
-      clearTimeout(errorTimer)
-    } else {
-      showError = true
-
-      if (errorTimer) {
-        clearTimeout(errorTimer)
-      }
-
-      errorTimer = setTimeout(() => {
-        showError = false
-        errorTimer = undefined
-      }, 5000)
-    }
   }
 
   /** Получаем город пользователя */
   export const getMyCity = async (): Promise<void> => {
     let city: string | undefined
 
-    try {
-      city = await searchMyCity()
-      chosenCity.set(city!)
-    } catch (error) {
-      throw error
-    } finally {
-      getErrorGeo(city)
+    if (dataForecast) {
+      try {
+        city = await searchMyCity()
+        if (city === $chosenCity) {
+          textTooltip = i18n.get('data_already_loaded')
+          return
+        }
+        textTooltip = ''
+        chosenCity.set(city!)
+      } catch (error) {
+        textTooltip = i18n.get('allow_geo')
+        throw error
+      }
     }
   }
 </script>
@@ -101,20 +85,24 @@
       <TemperatureNow
         {dataForecast}
         {error}
-        update={(data) => (dataForecast = data)}
+        update={(data) => {
+          dataForecast = data
+          textTooltip = ''
+        }}
       />
-      {#if dataForecast}
-        <div class="forecast-data__block-geo">
-          <Button onclick={getMyCity} color={colors.WHITE_TRANSPARENT}>
-            {#snippet text()}
-              {i18n.get('my_geolocation')}
-            {/snippet}
-          </Button>
-          {#if showError}
-            <div class="forecast-data__error">{i18n.get('allow_geo')}</div>
-          {/if}
-        </div>
-      {/if}
+      <Tooltip
+        tip={textTooltip ? tip : null}
+        theme={$backgroundColor === colors.WHITE ? 'tip-white' : 'tip-grey'}
+      >
+        <Button onclick={getMyCity} color={colors.WHITE_TRANSPARENT}>
+          {#snippet text()}
+            {i18n.get('my_geolocation')}
+          {/snippet}
+        </Button>
+      </Tooltip>
+      {#snippet tip()}
+        <span class="forecast-data__tip">{textTooltip}</span>
+      {/snippet}
     </div>
   </div>
   <div class="forecast-data__tab-content">
@@ -134,6 +122,8 @@
   .forecast-data
     display: flex
     flex-direction: column
+    &__tip
+      font-size: 20px
     &__content
       display: flex
       justify-content: space-between
@@ -160,23 +150,10 @@
       flex-direction: column
       align-items: center
       gap: 25px
-    &__block-geo
-      position: relative
-      display: inline-flex
-      flex-direction: column
-      align-items: center
-    &__error
-      position: absolute
-      bottom: -30px
-      text-align: center
-      color: var(--light-red)
-      text-shadow: 1.5px 1.5px var(--black)
-      font-size: 25px
-      white-space: nowrap
 
   @media (max-width: 1000px)
-    .forecast-data__error
-      font-size: 18px
+    .forecast-data__tip
+      font-size: 16px
 
   @media (max-width: 700px)
     .forecast-data__content
@@ -185,13 +162,12 @@
   @media (max-width: 550px)
     .forecast-data__content
       padding: 40px 20px
+      font-size: 12px
 
   @media (max-width: 450px)
     .forecast-data
+      &__tip
+        font-size: 10px
       &__content
         padding: 30px 8px
-      &__error
-        font-size: 14px
-        white-space: wrap
-        bottom: -35px
 </style>

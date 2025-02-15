@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
-import type {City} from '../model/City'
+import type {CityTranslate} from '../model/CityTranslate'
 
 /** Переводим город на нужный нам язык */
 export const translateCity = async (
@@ -11,7 +11,7 @@ export const translateCity = async (
   const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&lang=${lang}&apiKey=d27753f9ddea41d1abc33eaaa7aa7f2f`
 
   try {
-    const response: AxiosResponse<City> = await axios.get(url)
+    const response: AxiosResponse<CityTranslate> = await axios.get(url)
 
     if (response.status !== 200) {
       throw new Error(`Ошибка: ${response.status}`)

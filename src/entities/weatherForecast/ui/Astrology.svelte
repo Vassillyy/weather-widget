@@ -71,6 +71,7 @@
         {i18n.get('sunrise_in')}
         {sunrise.toFormat('HH')}:{sunrise.toFormat('mm')}
       </span>
+      <span>{'\u00A0'}</span>
       <span>
         {i18n.get('sunset_in')}
         {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
@@ -91,6 +92,7 @@
         {i18n.get('sunset_in')}
         {sunset.toFormat('HH')}:{sunset.toFormat('mm')}
       </span>
+      <span>{'\u00A0'}</span>
       <span>
         {i18n.get('sunrise_in')}
         {sunriseNext.toFormat('HH')}:{sunriseNext.toFormat('mm')}

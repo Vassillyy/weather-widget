@@ -20,7 +20,7 @@
     justify-content: center
     align-items: center
     gap: 30px
-    padding: 20px 20px 5px
+    padding: 20px 20px 20px
     border-style: solid
     border-width: 0.2px
     border-color: var(--light-gray)

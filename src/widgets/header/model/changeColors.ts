@@ -1,8 +1,6 @@
 import {backgroundColor, colors, gradientColor} from '@/shared/lib'
 
-/**
- * Изменение цвета фона и градиента.
- */
+/** Изменение цвета фона и градиента */
 export const changeColors = (): void => {
   backgroundColor.update((color: string): string => {
     const newColor: string =

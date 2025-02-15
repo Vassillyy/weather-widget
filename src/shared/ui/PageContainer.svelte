@@ -13,7 +13,6 @@
     --horizontal-offset: 30px
     background-color: transparent
     margin: 0 auto
-    padding-bottom: 30px
     padding-left: var(--horizontal-offset)
     padding-right: var(--horizontal-offset)
     max-width: calc(1200px + var(--horizontal-offset) + var(--horizontal-offset))

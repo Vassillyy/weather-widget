@@ -1,60 +1,106 @@
 export type City = {
-  features: Data[]
-}
-
-type Data = {
-  bbox: number[]
-  geometry: Geometry
-  properties: Properties
-  type: string
-}
-
-type Geometry = {
-  coordinates: number[]
-  type: string
-}
-
-type Properties = {
-  address_line1: string
-  address_line2: string
-  category: string
-  city: string
-  country: string
-  country_code: string
-  county: string
-  datasource: Datasource
-  district: string
-  formatted: string
-  lat: number
-  lon: number
-  place_id: string
-  plus_code: string
-  rank: Rank
-  result_type: string
-  state: string
-  timezone: Timezone
-  village: string
-}
-
-type Datasource = {
-  attribution: string
-  license: string
-  sourcename: string
-  url: string
-}
-
-type Rank = {
-  confidence: number
-  confidence_city_level: number
-  importance: number
-  match_type: string
-  popularity: number
-}
-
-type Timezone = {
-  name: string
-  offset_DST: string
-  offset_DST_seconds: number
-  offset_STD: string
-  offset_STD_seconds: number
+  suggestions: Array<{
+    data: {
+      area: null
+      area_fias_id: null
+      area_kladr_id: null
+      area_type: null
+      area_type_full: null
+      area_with_type: null
+      beltway_distance: null
+      beltway_hit: null
+      block: null
+      block_type: null
+      block_type_full: null
+      capital_marker: string
+      city: string
+      city_area: null
+      city_district: null
+      city_district_fias_id: null
+      city_district_kladr_id: null
+      city_district_type: null
+      city_district_type_full: null
+      city_district_with_type: null
+      city_fias_id: string
+      city_kladr_id: null
+      city_type: string
+      city_type_full: string
+      city_with_type: string
+      country: string
+      country_iso_code: string
+      divisions: null
+      entrance: null
+      federal_district: null
+      fias_actuality_state: string
+      fias_code: null
+      fias_id: string
+      fias_level: string
+      flat: null
+      flat_area: null
+      flat_cadnum: null
+      flat_fias_id: null
+      flat_price: null
+      flat_type: null
+      flat_type_full: null
+      floor: null
+      geo_lat: string
+      geo_lon: string
+      geoname_id: string
+      history_values: null
+      house: null
+      house_cadnum: null
+      house_fias_id: null
+      house_flat_count: null
+      house_kladr_id: null
+      house_type: null
+      house_type_full: null
+      kladr_id: null
+      metro: null
+      okato: null
+      oktmo: null
+      postal_box: null
+      postal_code: string
+      qc: null
+      qc_complete: null
+      qc_geo: string
+      qc_house: null
+      region: string
+      region_fias_id: string
+      region_iso_code: string
+      region_kladr_id: null
+      region_type: 'г'
+      region_type_full: string
+      region_with_type: string
+      room: null
+      room_cadnum: null
+      room_fias_id: null
+      room_type: null
+      room_type_full: null
+      settlement: null
+      settlement_fias_id: null
+      settlement_kladr_id: null
+      settlement_type: null
+      settlement_type_full: null
+      settlement_with_type: null
+      source: null
+      square_meter_price: null
+      stead: null
+      stead_cadnum: null
+      stead_fias_id: null
+      stead_type: null
+      stead_type_full: null
+      street: null
+      street_fias_id: null
+      street_kladr_id: null
+      street_type: null
+      street_type_full: null
+      street_with_type: null
+      tax_office: null
+      tax_office_legal: null
+      timezone: null
+      unparsed_parts: null
+    }
+    unrestricted_value: string
+    value: string
+  }>
 }

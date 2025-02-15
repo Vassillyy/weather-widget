@@ -5,7 +5,7 @@ export const en: {[key: string]: string} = {
   updated: 'Updated:',
   my_geolocation: 'My geolocation',
   loading_data: 'Loading data...',
-  sorry: 'Sorry, weather data is temporarily unavailable.',
+  sorry: 'Sorry, data for this city is temporarily unavailable.',
   again_later: 'Please try again later.',
   sunrise_in: 'Sunrise in:',
   sunset_in: 'Sunset in:',
@@ -40,5 +40,7 @@ export const en: {[key: string]: string} = {
   now: 'Now',
   today: 'Today',
   tomorrow: 'Tomorrow',
-  in_two_days: 'In 2 days'
+  in_two_days: 'In 2 days',
+  city_not_found: 'City not found',
+  data_already_loaded: 'Data already loaded'
 }

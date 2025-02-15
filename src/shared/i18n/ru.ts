@@ -5,7 +5,7 @@ export const ru: {[key: string]: string} = {
   updated: 'Обновлено в:',
   my_geolocation: 'Моя геолокация',
   loading_data: 'Загрузка данных...',
-  sorry: 'Извините, данные о погоде временно недоступны.',
+  sorry: 'Извините, данные по этому городу временно недоступны.',
   again_later: 'Пожалуйста, попробуйте позже.',
   sunrise_in: 'Восход в:',
   sunset_in: 'Закат в:',
@@ -40,5 +40,7 @@ export const ru: {[key: string]: string} = {
   now: 'Сейчас',
   today: 'Сегодня',
   tomorrow: 'Завтра',
-  in_two_days: 'Через 2 дня'
+  in_two_days: 'Через 2 дня',
+  city_not_found: 'Город не найден',
+  data_already_loaded: 'Данные уже загружены'
 }

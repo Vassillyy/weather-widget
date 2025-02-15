@@ -1,5 +1,4 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
   import tippy from 'tippy.js'
   import type {Instance, Placement} from 'tippy.js'
   import type {Snippet} from 'svelte'
@@ -7,11 +6,12 @@
 
   type Props = {
     children: Snippet
-    tip?: Snippet
+    tip: Snippet | null
     trigger?: 'mouseenter' | 'click'
     arrow?: boolean
     placement?: Placement
     theme?: string
+    showTip?: boolean
   }
 
   let {
@@ -20,14 +20,31 @@
     trigger = 'mouseenter',
     arrow = true,
     placement = 'bottom',
-    theme = 'tip-white'
+    theme = 'tip-white',
+    showTip = false
   }: Props = $props()
 
+  /** Элемент контейнера тултипа */
   let tooltipElement: HTMLElement | undefined = $state()
+  /** Элемент содержимого тултипа */
   let tipElement: HTMLElement | undefined = $state()
+  /** Экземпляр Tippy.js */
   let instance: Instance | undefined = $state()
 
-  onMount(() => {
+  /** Эффект отвечает за показ или скрытие тултипа в зависимости от значения showTip */
+  $effect(() => {
+    if (showTip) instance?.show()
+    else instance?.hide()
+  })
+
+  /** Эффект для управления состоянием тултипа в зависимости от наличия значения в tip */
+  $effect(() => {
+    if (tip) instance?.enable()
+    else instance?.disable()
+  })
+
+  /** Эффект для обновления тултипа */
+  $effect(() => {
     if (tooltipElement) {
       instance = tippy(tooltipElement, {
         content: tipElement,
@@ -39,10 +56,9 @@
         appendTo: document.body,
         interactive: true
       })
+
       return () => {
-        if (instance) {
-          instance.destroy()
-        }
+        instance?.destroy()
       }
     }
   })
@@ -56,9 +72,7 @@
       role="button"
       tabindex="0"
       bind:this={tipElement}
-      onclick={() => {
-        if (instance) instance.hide()
-      }}
+      onclick={() => instance?.hide()}
       onkeyup={() => {}}
     >
       {@render tip()}
@@ -69,14 +83,16 @@
 <style lang="sass">
   .tooltip
     cursor: pointer
+
   :global(.tippy-box[data-theme='tip-grey'])
     background-color: var(--light-gray)
+    color: var(--black)
   :global(.tippy-box[data-theme='tip-grey'][data-placement^=bottom]>.tippy-arrow:before)
     border-bottom-color: var(--light-gray)
 
   :global(.tippy-box[data-theme='tip-white'])
-    background-color: var(--white)
-    color: var(--black)
+    background-color: var(--light-blue)
+    color: var(--white)
   :global(.tippy-box[data-theme='tip-white'][data-placement^=bottom]>.tippy-arrow:before)
-    border-bottom-color: var(--white)
+    border-bottom-color: var(--light-blue)
 </style>

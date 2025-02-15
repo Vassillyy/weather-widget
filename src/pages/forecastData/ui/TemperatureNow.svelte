@@ -3,7 +3,7 @@
   import type {Forecast} from '@/entities/weatherForecast'
   import {chosenCity} from '@/entities/city'
   import {searchForecast} from '@/entities/weatherForecast'
-  import {gradientColor, tempUnit} from '@/shared/lib'
+  import {colors, gradientColor, tempUnit, backgroundColor} from '@/shared/lib'
   import {ProgressBar, Icon, Tooltip} from '@/shared/ui'
   import {i18n} from '@/shared/i18n'
   import {getCodeIconNow} from '../model/getCodeIconNow'
@@ -51,7 +51,9 @@
 
 <div class="temperature-now" style="background-image: {$gradientColor}">
   {#if dataForecast}
-    <Tooltip>
+    <Tooltip
+      theme={$backgroundColor === colors.WHITE ? 'tip-white' : 'tip-grey'}
+    >
       <button {disabled} onclick={updateData} class="temperature-now__update">
         <Icon name="reboot" {rotation} />
       </button>
@@ -154,7 +156,7 @@
       &__icon
         width: 120px
       &__icon_no-data
-        padding-top:55px
+        padding-top: 55px
         padding-bottom: 55px
       &__temp-value
         font-size: 40px

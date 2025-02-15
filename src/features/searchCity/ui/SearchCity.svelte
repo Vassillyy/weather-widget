@@ -1,11 +1,13 @@
 <script lang="ts">
   import {fly} from 'svelte/transition'
-  import {searchCity, chosenCity} from '@/entities/city'
+  import {chosenCity} from '@/entities/city'
+  import {searchCityList} from '@/entities/city'
   import {backgroundColor, colors} from '@/shared/lib'
-  import {Button, Icon} from '@/shared/ui'
+  import {Button, Icon, Tooltip} from '@/shared/ui'
   import {i18n} from '@/shared/i18n'
   import {citySchema} from '../model/citySchema'
   import {inputBan} from '../model/inputBan'
+  import ListHints from './ListHints.svelte'
 
   /** Значение input-а */
   let inputValue: string = $state('')
@@ -21,8 +23,6 @@
   let inputElement: HTMLElement | null = $state(null)
   /** Найденный город */
   let city: string | undefined = $state()
-  /** Таймер задержки перед отправкой запроса на поиск города */
-  let timerId: ReturnType<typeof setTimeout> | undefined = $state()
 
   /** Цвет обводки. */
   const colorBorder: string = $derived(
@@ -47,10 +47,12 @@
       inputValue = ''
     }
   }
+
   /** Дейсвие по клику (или открываем input или ищем город) */
   const clickAction = (): void => {
     isActive ? saveCity() : (isActive = true)
   }
+
   /** Сохранение города в хранилище */
   const saveCity = (): void => {
     if (city) chosenCity.set(city)
@@ -58,13 +60,9 @@
     inputValue = ''
     city = ''
   }
-  /**
-   * Поиск города.
-   * @param val - вводимое в поле значение.
-   */
-  const checkCity = (val: string): void => {
-    if (timerId) clearTimeout(timerId)
 
+  /** Форматирование строки ввода и поиск города */
+  const formattedValue = async (): Promise<void> => {
     const validatedValue = citySchema.parse(inputValue)
     inputValue = validatedValue
 
@@ -73,47 +71,64 @@
       return
     }
 
-    timerId = setTimeout(async () => {
-      city = await searchCity(val.trim())
+    const cityList = await searchCityList(inputValue)
 
-      if (!city && isActive) disabledButton = true
-      else disabledButton = false
-    }, 1000)
+    for (let _city of cityList.suggestions) {
+      if (inputValue === _city.data.city && isActive) {
+        disabledButton = false
+        city = _city.data.city
+        return
+      } else disabledButton = true
+    }
   }
 </script>
 
 <svelte:window onclick={(e) => closeInput(e)} />
 
+{#snippet tip()}
+  <ListHints {inputValue} />
+{/snippet}
+
 <form class="search" bind:this={searchElement}>
   {#if isActive}
-    <input
-      type="text"
-      class="search__input"
-      class:search__input_active={isActive}
-      placeholder={showPlaceholder ? i18n.get('enter_city') : ''}
-      style="border-color: {colorBorder}; color: {colorText}"
-      transition:fly={{x: 15, duration: 600}}
-      onintrostart={() => {
-        showPlaceholder = false
-        disabledButton = true
-      }}
-      onintroend={() => {
-        showPlaceholder = true
-        disabledButton = false
-        if (inputElement) {
-          inputElement.focus()
-        }
-      }}
-      onoutrostart={() => {
-        showPlaceholder = false
-        disabledButton = true
-      }}
-      onoutroend={() => (disabledButton = false)}
-      bind:value={inputValue}
-      bind:this={inputElement}
-      oninput={() => checkCity(inputValue)}
-      onbeforeinput={inputBan}
-    />
+    <div class="search__tooltip">
+      <Tooltip
+        showTip={!!inputValue}
+        tip={inputValue ? tip : null}
+        theme={$backgroundColor === colors.WHITE ? 'tip-white' : 'tip-grey'}
+        arrow={false}
+        placement="bottom-start"
+      >
+        <input
+          type="text"
+          class="search__input"
+          class:search__input_active={isActive}
+          placeholder={showPlaceholder ? i18n.get('enter_city') : ''}
+          style="border-color: {colorBorder}; color: {colorText}"
+          transition:fly={{x: 15, duration: 600}}
+          onintrostart={() => {
+            showPlaceholder = false
+            disabledButton = true
+          }}
+          onintroend={() => {
+            showPlaceholder = true
+            disabledButton = false
+            if (inputElement) {
+              inputElement.focus()
+            }
+          }}
+          onoutrostart={() => {
+            showPlaceholder = false
+            disabledButton = true
+          }}
+          onoutroend={() => (disabledButton = false)}
+          bind:value={inputValue}
+          bind:this={inputElement}
+          oninput={formattedValue}
+          onbeforeinput={inputBan}
+        />
+      </Tooltip>
+    </div>
   {/if}
 
   <div class="search__button">
@@ -132,9 +147,10 @@
     display: flex
     justify-content: flex-end
     align-items: center
-    &__input
+    &__tooltip
       position: absolute
       right: 0
+    &__input
       box-sizing: border-box
       border-radius: 50%
       border-width: 3px
