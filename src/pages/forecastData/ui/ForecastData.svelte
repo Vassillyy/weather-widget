@@ -47,20 +47,17 @@
   /** Получаем город пользователя */
   export const getMyCity = async (): Promise<void> => {
     let city: string | undefined
-
-    if (dataForecast) {
-      try {
-        city = await searchMyCity()
-        if (city === $chosenCity) {
-          textTooltip = i18n.get('data_already_loaded')
-          return
-        }
-        textTooltip = ''
-        chosenCity.set(city!)
-      } catch (error) {
-        textTooltip = i18n.get('allow_geo')
-        throw error
+    try {
+      city = await searchMyCity()
+      if (city === $chosenCity) {
+        textTooltip = i18n.get('data_already_loaded')
+        return
       }
+      textTooltip = ''
+      chosenCity.set(city!)
+    } catch (error) {
+      textTooltip = i18n.get('allow_geo')
+      throw error
     }
   }
 </script>
@@ -93,6 +90,7 @@
       <Tooltip
         tip={textTooltip ? tip : null}
         theme={$backgroundColor === colors.WHITE ? 'tip-white' : 'tip-grey'}
+        trigger="click"
       >
         <Button onclick={getMyCity} color={colors.WHITE_TRANSPARENT}>
           {#snippet text()}

@@ -18,12 +18,13 @@
   )
   /**
    * Смена языка.
-   * @param language - выьранный язык.
+   * @param language - выбранный язык.
    */
   const changeLanguage = (language: Language): void => {
     i18n.set(seclectedLanguage.value)
     localStorage.setItem('lang', language.value)
     seclectedLanguage = language
+    location.reload()
   }
 </script>
 
