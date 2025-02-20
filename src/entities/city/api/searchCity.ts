@@ -1,15 +1,19 @@
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
-import type {City} from '../model/City'
 import {i18n} from '@/shared/i18n'
+import type {City} from '../model/City'
 
-export const searchCityList = async (value: string): Promise<City> => {
-  const apiURL =
-    'http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
+interface CityListFn {
+  (value: string): Promise<City>
+}
+
+export const searchCityList: CityListFn = async (value) => {
+  const apiUrl: string = import.meta.env.VITE_URL_API_DADATA
+  const apiKey: string = import.meta.env.VITE_KEY_API_DADATA
 
   try {
     const response: AxiosResponse<City> = await axios.post(
-      apiURL,
+      apiUrl,
       {
         query: value,
         count: 6,
@@ -21,7 +25,7 @@ export const searchCityList = async (value: string): Promise<City> => {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Token 32e3066a8245a56c955412eed1889c1fb80504f7'
+          Authorization: 'Token ' + apiKey
         }
       }
     )
