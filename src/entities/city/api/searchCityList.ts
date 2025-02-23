@@ -17,9 +17,7 @@ export const searchCityList: CityListFn = async (value) => {
       {
         query: value,
         count: 6,
-        from_bound: {value: 'city'},
-        to_bound: {value: 'city'},
-        locations: [{country: '*'}],
+        locations: [{country: '*', city_type_full: 'город'}],
         language: i18n.currentLanguage
       },
       {
@@ -33,7 +31,7 @@ export const searchCityList: CityListFn = async (value) => {
     if (response.status !== 200) {
       throw new Error(`Ошибка: ${response.status}`)
     }
-
+    console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)
