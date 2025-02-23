@@ -1,6 +1,6 @@
 import type {Day} from './Day'
 
-export type Forecast = {
+export interface Forecast {
   current: Current
   forecast: {
     forecastday: Day[]
@@ -8,7 +8,7 @@ export type Forecast = {
   location: Location
 }
 
-type Current = {
+interface Current {
   cloud: number
   condition: Condition
   dewpoint_c: number
@@ -40,13 +40,13 @@ type Current = {
   windchill_f: number
 }
 
-type Condition = {
+interface Condition {
   code: number
   icon: string
   text: string
 }
 
-type Location = {
+interface Location {
   country: string
   lat: number
   localtime: string

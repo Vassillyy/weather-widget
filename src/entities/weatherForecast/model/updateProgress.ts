@@ -1,22 +1,24 @@
 import {DateTime, Duration} from 'luxon'
 
-type Parametrs = {
-  sunrise: DateTime
-  sunset: DateTime
-  sunriseNext: DateTime
+interface ProgressFn {
+  ({
+    sunrise,
+    sunset,
+    sunriseNext
+  }: {
+    sunrise: DateTime
+    sunset: DateTime
+    sunriseNext: DateTime
+  }): ReturnData
 }
 
-type ReturnData = {
+interface ReturnData {
   progress: number
   time: string
 }
 
 /** Обновление процесса заполнения */
-export const updateProgress = ({
-  sunrise,
-  sunset,
-  sunriseNext
-}: Parametrs): ReturnData => {
+export const updateProgress: ProgressFn = ({sunrise, sunset, sunriseNext}) => {
   const nowDate: DateTime = DateTime.now()
 
   let progress: number = 0

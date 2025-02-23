@@ -24,11 +24,11 @@
   let visibilityCards: number | undefined = $state()
 
   /** Цвет фона кнопки */
-  const backgroundColorButton = $derived(
+  const backgroundColorButton: string = $derived(
     $backgroundColor === colors.WHITE ? colors.LIGHT_CYAN : colors.GRAY_60
   )
   /** Цвет прогресс бара */
-  const backgroundColorProgressBar = $derived(
+  const backgroundColorProgressBar: string = $derived(
     $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
   )
 
@@ -36,7 +36,7 @@
    * Навигация по элементам с помощью клавишь.
    * @param event - событие нажатия клавиши.
    */
-  const navigationWithArrows = (event: KeyboardEvent) => {
+  const navigationWithArrows = (event: KeyboardEvent): void => {
     const isRightArrow = event.key === 'ArrowRight'
     const isLeftArrow = event.key === 'ArrowLeft'
 
@@ -46,9 +46,7 @@
 
   /** Эффект для обновления значения шага при изменении ширины карточки */
   $effect(() => {
-    if (widthCard) {
-      step = currentIndex * -(widthCard + 5)
-    }
+    if (widthCard) step = currentIndex * -(widthCard + 5)
   })
 
   /** Эффект для вычисления видимости карточек на основе ширины списка карточек */

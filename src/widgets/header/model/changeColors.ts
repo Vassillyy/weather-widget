@@ -2,7 +2,7 @@ import {backgroundColor, colors, gradientColor} from '@/shared/lib'
 
 /** Изменение цвета фона и градиента */
 export const changeColors = (): void => {
-  backgroundColor.update((color: string): string => {
+  backgroundColor.update((color) => {
     const newColor: string =
       color === colors.WHITE ? colors.BLACK : colors.WHITE
 

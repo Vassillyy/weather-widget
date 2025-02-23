@@ -24,9 +24,7 @@
 
   /** Эффект для обновления состояния дня или ночи при обновлении данных погоды */
   $effect(() => {
-    if (dataForecast) {
-      isDay = !!dataForecast.current.is_day
-    }
+    if (dataForecast) isDay = !!dataForecast.current.is_day
   })
 
   /**  Эффект для получения данных о прогнозе при изменении выбранного города */
@@ -39,7 +37,7 @@
   })
 
   /** Получение данных через деструктурицацию */
-  const getDataForecast = async () => {
+  const getDataForecast = async (): Promise<void> => {
     error = false
     ;({dataForecast, error} = await getForecastForCity($chosenCity))
   }
@@ -67,8 +65,8 @@
   <meta name="description" content="Аналитика погоды" />
 </svelte:head>
 
-<div class="forecast-data">
-  <div
+<main class="forecast-data">
+  <section
     class="forecast-data__content"
     class:forecast-data__content_day={dataForecast && isDay}
     class:forecast-data__content_night={dataForecast && !isDay}
@@ -102,8 +100,8 @@
         <span class="forecast-data__tip">{textTooltip}</span>
       {/snippet}
     </div>
-  </div>
-  <div class="forecast-data__tab-content">
+  </section>
+  <section class="forecast-data__tab-content">
     <Tabs>
       {#snippet today()}
         <ListHourCards {dataForecast} {error} />
@@ -113,8 +111,8 @@
         <ListDayCards {dataForecast} {error} />
       {/snippet}
     </Tabs>
-  </div>
-</div>
+  </section>
+</main>
 
 <style lang="sass">
   .forecast-data

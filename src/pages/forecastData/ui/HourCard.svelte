@@ -53,14 +53,10 @@
     updateWidth()
     getData()
 
-    window.addEventListener('resize', () => {
-      updateWidth()
-    })
+    window.addEventListener('resize', () => updateWidth())
 
     return () => {
-      window.removeEventListener('resize', () => {
-        updateWidth()
-      })
+      window.removeEventListener('resize', () => updateWidth())
     }
   })
 </script>

@@ -1,11 +1,15 @@
 import type {Conditions} from './Conditions'
 
+interface CodeIconFn {
+  (iconText: string, isDay: boolean): string
+}
+
 /**
  * Функция для получения кода иконки на основе текста и дня/ночи.
  * @param iconText - цифровой код иконки.
  * @param isDay - день или ночь.
  */
-export const getCodeIcon = (iconText: string, isDay: boolean): string => {
+export const getCodeIcon: CodeIconFn = (iconText, isDay) => {
   let code: string | undefined
 
   const forecastConditions: Conditions = {
@@ -56,10 +60,10 @@ export const getCodeIcon = (iconText: string, isDay: boolean): string => {
     ],
     storm: ['386', '389', '392', '395'],
     clear: ['113']
-  } as const
+  }
 
   ;(Object.keys(forecastConditions) as Array<keyof Conditions>).forEach(
-    (condition): void => {
+    (condition) => {
       if (forecastConditions[condition].includes(iconText)) {
         if (condition === 'fog') {
           code = '07'

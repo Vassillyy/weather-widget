@@ -22,7 +22,7 @@
     $backgroundColor === colors.WHITE ? colors.BLUE_60 : colors.WHITE
   )
   /** Цвет стрелок */
-  const colorArrow = $derived(
+  const colorArrow: string = $derived(
     $backgroundColor === colors.WHITE ? colors.PURPLE : colors.GRAY_90
   )
 </script>

@@ -23,7 +23,7 @@
   /** Оставшееся время до разблокировки кнопки обновить */
   let timeLeft: Duration | undefined = $state()
   /** Текст подсказки */
-  let textTip = $derived(
+  let textTip: string = $derived(
     disabled && timeLeft
       ? i18n.get('update_in') + ' ' + timeLeft?.toFormat('mm:ss')
       : i18n.get('update_data')

@@ -1,7 +1,7 @@
 import {z} from 'zod'
 
 /** Схема для поля поиска */
-export const citySchema = z.string().transform((val: string): string => {
+export const citySchema = z.string().transform((val) => {
   return val
     .split(/(\s+|-)/)
     .map((word, index) => {

@@ -5,17 +5,21 @@ import {tempUnit} from '@/shared/lib'
 import {i18n} from '@/shared/i18n'
 import type {Hour} from '@/entities/weatherForecast'
 
-type ReturnData = {
+interface ForecastLittleCardFn {
+  (dataForecast: Forecast, index: number): ReturnData
+}
+
+interface ReturnData {
   filtTemp: number
   temp: number
   titleCard: string[] | string
 }
 
 /** Получаем данные о погоде для карточки по часам */
-export const getForecastLittleCard = (
-  dataForecast: Forecast,
-  index: number
-): ReturnData => {
+export const getForecastLittleCard: ForecastLittleCardFn = (
+  dataForecast,
+  index
+) => {
   const infoCard: Hour = dataForecast.forecast.forecastday[0].hour[index]
   const filtTempC: number = Math.round(infoCard.feelslike_c)
   const filtTempF: number = Math.round(infoCard.feelslike_f)

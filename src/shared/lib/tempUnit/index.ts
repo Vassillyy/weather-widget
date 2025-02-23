@@ -7,6 +7,6 @@ const initialTempUnit: string = localStorage.getItem('tempUnit') || '°C'
 export const tempUnit: Writable<string> = writable(initialTempUnit)
 
 /** Слушаем изменения температуры и сохраняем в локальное хранилище */
-tempUnit.subscribe((value): void => {
+tempUnit.subscribe((value) => {
   localStorage.setItem('tempUnit', value)
 })

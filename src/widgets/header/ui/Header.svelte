@@ -8,7 +8,7 @@
   import {changeColors} from '../model/changeColors'
 </script>
 
-<div class="header">
+<header class="header">
   <Logo />
 
   <div class="header__block-settings">
@@ -31,7 +31,7 @@
 
     <SelectLanguage />
   </div>
-</div>
+</header>
 
 <style lang="sass">
   .header

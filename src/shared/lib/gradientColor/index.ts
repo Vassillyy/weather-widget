@@ -9,6 +9,6 @@ const initialColorGradient: string =
 export const gradientColor: Writable<string> = writable(initialColorGradient)
 
 /** Слушаем изменения цвета градиента и сохраняем в локальное хранилище */
-gradientColor.subscribe((value): void => {
+gradientColor.subscribe((value) => {
   localStorage.setItem('colorGradient', value)
 })

@@ -3,7 +3,11 @@ import {DateTime} from 'luxon'
 import type {Day, Forecast} from '@/entities/weatherForecast'
 import {tempUnit} from '@/shared/lib'
 
-type ReturnData = {
+interface ForecastBigCardDataFn {
+  (data: Forecast, index: number): ReturnData
+}
+
+interface ReturnData {
   day: string
   statusWeather: string
   temp: number
@@ -12,10 +16,7 @@ type ReturnData = {
 }
 
 /** Получаем данные о погоде для карточки по дням */
-export const getForecastBigCardData = (
-  data: Forecast,
-  index: number
-): ReturnData => {
+export const getForecastBigCardData: ForecastBigCardDataFn = (data, index) => {
   const infoCard: Day = data.forecast.forecastday[index]
   const day: string = DateTime.fromISO(infoCard.date).toFormat('dd.MM.yyyy')
   const statusWeather: string = infoCard.day.condition.text

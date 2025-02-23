@@ -1,7 +1,11 @@
 import type {Forecast} from '@/entities/weatherForecast'
 import {getCodeIcon} from '@/shared/lib'
 
-export const getCodeIconDays = (data: Forecast, index: number): string => {
+interface CodeIconDaysFn {
+  (data: Forecast, index: number): string
+}
+
+export const getCodeIconDays: CodeIconDaysFn = (data, index) => {
   const iconText: string = data.forecast.forecastday[index].day.condition.icon
     .split('/')
     .pop()!

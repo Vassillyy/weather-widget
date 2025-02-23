@@ -1,11 +1,15 @@
 import type {Forecast} from '@/entities/weatherForecast'
 import {getCodeIcon} from '@/shared/lib'
 
+interface CodeIconNowFn {
+  (data: Forecast): string
+}
+
 /**
  * Получаем код иконки для погоды на данный момент.
  * @param data - данные о погоде.
  */
-export const getCodeIconNow = (data: Forecast): string => {
+export const getCodeIconNow: CodeIconNowFn = (data) => {
   const iconText: string = data.current.condition.icon
     .split('/')
     .pop()!

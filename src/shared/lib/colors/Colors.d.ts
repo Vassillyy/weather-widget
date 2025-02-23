@@ -1,4 +1,4 @@
-export type Colors = {
+export interface Colors {
   WHITE: string
   WHITE_TRANSPARENT: string
   BLACK: string

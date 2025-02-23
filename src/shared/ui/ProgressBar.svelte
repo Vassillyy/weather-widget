@@ -12,9 +12,10 @@
   let widthElement: number | undefined = $state()
 
   /** Интервал для обновления угла вращения */
-  const interval = setInterval(() => {
-    deg += 20
-  }, 100)
+  const interval: ReturnType<typeof setInterval> = setInterval(
+    () => (deg += 20),
+    100
+  )
 
   /** Обновление ширины бордера*/
   const updateWidth = (): void => {

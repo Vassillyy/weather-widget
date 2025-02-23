@@ -1,12 +1,16 @@
 import type {Forecast} from '@/entities/weatherForecast'
 import {getCodeIcon} from '@/shared/lib'
 
+interface CodeIconHoursFn {
+  (data: Forecast, index: number): string
+}
+
 /**
  * Получаем код иконки для погоды для списка карточек по часам.
  * @param data - Данные о погоде.
  * @param index - Индекс карточки.
  */
-export const getCodeIconHours = (data: Forecast, index: number): string => {
+export const getCodeIconHours: CodeIconHoursFn = (data, index) => {
   const iconText: string = data.forecast.forecastday[0].hour[
     index
   ].condition.icon

@@ -1,6 +1,6 @@
 import type {Hour} from './Hour'
 
-export type Day = {
+export interface Day {
   astro: Astro
   date: string
   date_epoch: number
@@ -8,7 +8,7 @@ export type Day = {
   hour: Hour[]
 }
 
-type Astro = {
+interface Astro {
   is_moon_up: number
   is_sun_up: number
   moon_illumination: number
@@ -19,7 +19,7 @@ type Astro = {
   sunset: string
 }
 
-type Age = {
+interface Age {
   avghumidity: number
   avgtemp_c: number
   avgtemp_f: number
@@ -42,7 +42,7 @@ type Age = {
   uv: number
 }
 
-type Condition = {
+interface Condition {
   code: number
   icon: string
   text: string

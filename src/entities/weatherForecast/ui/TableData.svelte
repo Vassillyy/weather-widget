@@ -32,73 +32,71 @@
 </script>
 
 {#if dataForecast}
-  <div class="table-data">
-    <table>
-      <thead>
-        <tr>
-          <td class="table-data__item table-data__item_centered" colspan="2">
-            {dataForecast.current.condition.text}
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-data__item">
-            {i18n.get('amount_of_precipitation')}
-            {dataForecast.current.precip_mm}
-            {i18n.get('mm')}
-          </td>
-          <td class="table-data__item">
-            {i18n.get('humidity')}
-            {dataForecast.current.humidity} %
-          </td>
-        </tr>
-        <tr>
-          <td class="table-data__item">
-            {i18n.get('wind_speed')}
-            {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)}
-            {i18n.get('m_s')}
-            {i18n.get('from')}
-            {windDirection}
-          </td>
-          <td class="table-data__item">
-            {i18n.get('gusts_of_wind')}
-            {((dataForecast.current.gust_kph * 10) / 36).toFixed(2)}
-            {i18n.get('m_s')}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-data__item">
-            {i18n.get('atmospheric_pressure')}
-            {dataForecast.current.pressure_mb}
-            {i18n.get('h_pa')}
-          </td>
-          <td class="table-data__item">
-            {i18n.get('visibility')}
-            {dataForecast.current.vis_km}
-            {i18n.get('km')}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-data__item">
-            {i18n.get('probability_of_rain')}
-            {dataForecast.forecast.forecastday[0].day.daily_chance_of_rain} %
-          </td>
-          <td class="table-data__item">
-            {i18n.get('probability_of_snow')}
-            {dataForecast.forecast.forecastday[0].day.daily_chance_of_snow} %
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="table-data__item table-data__item_centered" colspan="2">
-            <Astrology {dataForecast} />
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+  <table class="table-data">
+    <thead>
+      <tr>
+        <td class="table-data__item table-data__item_centered" colspan="2">
+          {dataForecast.current.condition.text}
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-data__item">
+          {i18n.get('amount_of_precipitation')}
+          {dataForecast.current.precip_mm}
+          {i18n.get('mm')}
+        </td>
+        <td class="table-data__item">
+          {i18n.get('humidity')}
+          {dataForecast.current.humidity} %
+        </td>
+      </tr>
+      <tr>
+        <td class="table-data__item">
+          {i18n.get('wind_speed')}
+          {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)}
+          {i18n.get('m_s')}
+          {i18n.get('from')}
+          {windDirection}
+        </td>
+        <td class="table-data__item">
+          {i18n.get('gusts_of_wind')}
+          {((dataForecast.current.gust_kph * 10) / 36).toFixed(2)}
+          {i18n.get('m_s')}
+        </td>
+      </tr>
+      <tr>
+        <td class="table-data__item">
+          {i18n.get('atmospheric_pressure')}
+          {dataForecast.current.pressure_mb}
+          {i18n.get('h_pa')}
+        </td>
+        <td class="table-data__item">
+          {i18n.get('visibility')}
+          {dataForecast.current.vis_km}
+          {i18n.get('km')}
+        </td>
+      </tr>
+      <tr>
+        <td class="table-data__item">
+          {i18n.get('probability_of_rain')}
+          {dataForecast.forecast.forecastday[0].day.daily_chance_of_rain} %
+        </td>
+        <td class="table-data__item">
+          {i18n.get('probability_of_snow')}
+          {dataForecast.forecast.forecastday[0].day.daily_chance_of_snow} %
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="table-data__item table-data__item_centered" colspan="2">
+          <Astrology {dataForecast} />
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 {/if}
 
 <style lang="sass">

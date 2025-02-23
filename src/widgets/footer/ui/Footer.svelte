@@ -2,7 +2,7 @@
   import {Icon} from '@/shared/ui'
 </script>
 
-<div class="footer">
+<footer class="footer">
   <div class="footer__item">
     <Icon name="instagram" />
     infernooo0
@@ -11,7 +11,7 @@
     <Icon name="telegram" />
     @Infern00000
   </div>
-</div>
+</footer>
 
 <style lang="sass">
   .footer

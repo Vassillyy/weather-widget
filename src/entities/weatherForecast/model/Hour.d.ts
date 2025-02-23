@@ -1,4 +1,4 @@
-export type Hour = {
+export interface Hour {
   chance_of_rain: number
   chance_of_snow: number
   cloud: number
@@ -35,7 +35,7 @@ export type Hour = {
   windchill_f: number
 }
 
-type Condition = {
+interface Condition {
   code: number
   icon: string
   text: string

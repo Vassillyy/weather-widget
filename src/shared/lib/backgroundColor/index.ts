@@ -11,6 +11,6 @@ export const backgroundColor: Writable<string> = writable(
 )
 
 /** Слушаем изменения цвета фона и сохраняем в локальное хранилище */
-backgroundColor.subscribe((value): void => {
+backgroundColor.subscribe((value) => {
   localStorage.setItem('backgroundColor', value)
 })

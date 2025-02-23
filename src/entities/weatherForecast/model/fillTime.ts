@@ -1,16 +1,20 @@
 import {DateTime} from 'luxon'
 import type {Forecast} from '@/entities/weatherForecast'
-import {getOldValueSunset} from './getOldValueSunset'
+import {getOldValueSunset} from '../api/getOldValueSunset'
 import type {Day} from './Day'
 
-type ReturnData = {
+interface FillTimeFn {
+  (data: Forecast): Promise<ReturnData>
+}
+
+interface ReturnData {
   sunrise: DateTime
   sunset: DateTime
   sunriseNext: DateTime
 }
 
 /** Получение времени захода и восхода солнца */
-export const fillTime = async (data: Forecast): Promise<ReturnData> => {
+export const fillTime: FillTimeFn = async (data) => {
   const timezone: string = data.location.tz_id
   const localTimezone: string = DateTime.local().zoneName
   const nowMoment: DateTime = DateTime.now().setZone(timezone)

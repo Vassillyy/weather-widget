@@ -1,4 +1,4 @@
-export type Conditions = {
+export interface Conditions {
   fog: string[]
   littleCloudy: string[]
   cloudy: string[]
