@@ -1,13 +1,12 @@
 import {type Writable, writable} from 'svelte/store'
 
 /** Начальный город, полученный из локального хранилища */
-const initialChoisenCity: string =
-  localStorage.getItem('chosenCity') || 'Москва'
+const initialChosenCity: string = localStorage.getItem('chosenCity') || 'Москва'
 
 /** Отслеживание города */
-export const chosenCity: Writable<string> = writable(initialChoisenCity)
+export const chosenCity: Writable<string> = writable(initialChosenCity)
 
 /** Слушаем изменения города в локальное хранилище */
-chosenCity.subscribe((value): void => {
+chosenCity.subscribe((value) => {
   localStorage.setItem('chosenCity', value)
 })

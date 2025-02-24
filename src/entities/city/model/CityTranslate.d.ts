@@ -1,20 +1,24 @@
-export type CityTranslate = {
-  features: Data[]
-}
-
-type Data = {
-  bbox: number[]
-  geometry: Geometry
-  properties: Properties
+export interface CityTranslate {
+  features: Array<{
+    bbox: number[]
+    geometry: Geometry
+    properties: Properties
+    type: string
+  }>
+  query: {
+    lat: number
+    lon: number
+    plus_code: string
+  }
   type: string
 }
 
-type Geometry = {
+interface Geometry {
   coordinates: number[]
   type: string
 }
 
-type Properties = {
+interface Properties {
   address_line1: string
   address_line2: string
   category: string
@@ -36,14 +40,14 @@ type Properties = {
   village: string
 }
 
-type Datasource = {
+interface Datasource {
   attribution: string
   license: string
   sourcename: string
   url: string
 }
 
-type Rank = {
+interface Rank {
   confidence: number
   confidence_city_level: number
   importance: number
@@ -51,7 +55,7 @@ type Rank = {
   popularity: number
 }
 
-type Timezone = {
+interface Timezone {
   name: string
   offset_DST: string
   offset_DST_seconds: number

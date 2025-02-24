@@ -50,5 +50,6 @@ export const fillTime: FillTimeFn = async (data) => {
       sunset = await getOldValueSunset({data, date: nowMoment, timezone})
     }
   }
+
   return {sunrise, sunset, sunriseNext}
 }

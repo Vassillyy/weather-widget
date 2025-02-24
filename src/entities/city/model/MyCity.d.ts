@@ -1,4 +1,4 @@
-export type MyCity = {
+export interface MyCity {
   address: Address
   addresstype: string
   boundingbox: string[]
@@ -16,7 +16,7 @@ export type MyCity = {
   type: string
 }
 
-type Address = {
+interface Address {
   'ISO3166-2-lvl4': string
   city?: string
   town?: string

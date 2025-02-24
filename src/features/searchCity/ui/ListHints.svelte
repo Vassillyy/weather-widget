@@ -1,13 +1,13 @@
 <script lang="ts">
   import {chosenCity} from '@/entities/city'
   import {searchCityList} from '@/entities/city'
-  import type {City} from '@/entities/city'
+  import type {Cities} from '@/entities/city'
   import {i18n} from '@/shared/i18n'
 
   let {inputValue}: {inputValue: string} = $props()
 
   /** Данные о городах */
-  let cityData: City | undefined = $state()
+  let cityData: Cities | undefined = $state()
 
   /** Обновляем список городов */
   const updateCityList = async () => {

@@ -1,10 +1,10 @@
 import axios from 'axios'
 import type {AxiosResponse} from 'axios'
 import {i18n} from '@/shared/i18n'
-import type {City} from '../model/City'
+import type {Cities} from '../model/Cities'
 
 interface CityListFn {
-  (value: string): Promise<City>
+  (value: string): Promise<Cities>
 }
 
 export const searchCityList: CityListFn = async (value) => {
@@ -12,7 +12,7 @@ export const searchCityList: CityListFn = async (value) => {
   const apiKey: string = import.meta.env.VITE_KEY_API_DADATA
 
   try {
-    const response: AxiosResponse<City> = await axios.post(
+    const response: AxiosResponse<Cities> = await axios.post(
       apiUrl,
       {
         query: value,
@@ -31,7 +31,7 @@ export const searchCityList: CityListFn = async (value) => {
     if (response.status !== 200) {
       throw new Error(`Ошибка: ${response.status}`)
     }
-    console.log(response.data)
+
     return response.data
   } catch (error) {
     console.error(error)

@@ -1,4 +1,4 @@
-export type City = {
+export interface Cities {
   suggestions: Array<{
     data: {
       area: null

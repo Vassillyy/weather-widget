@@ -1,9 +1,9 @@
-export type Position = {
+export interface Position {
   coords: Coords
   timestamp: number
 }
 
-type Coords = {
+interface Coords {
   accuracy: number
   altitude: number | null
   altitudeAccuracy: number | null

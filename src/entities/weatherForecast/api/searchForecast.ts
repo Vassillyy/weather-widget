@@ -4,6 +4,7 @@ import {translateCity} from '@/entities/city/@x/translateCity'
 import {i18n} from '@/shared/i18n'
 import type {Forecast} from '../model/Forecast'
 import {createParams} from '../model/createParams'
+import type {Cities} from '@/entities/city'
 
 interface ForecastFn {
   (city: string): Promise<Forecast>
@@ -22,7 +23,7 @@ export const searchForecast: ForecastFn = async (city) => {
   const url: string = `${apiUrl}?${createParams(apiKey, city)}`
 
   try {
-    const response = await getDataForecast(url)
+    const response: Forecast = await getDataForecast(url)
 
     const {lat, lon}: Coors = response.location
 

@@ -1,7 +1,7 @@
 import type {Day} from './Day'
 
 export interface Forecast {
-  current: Current
+  current?: Current
   forecast: {
     forecastday: Day[]
   }
