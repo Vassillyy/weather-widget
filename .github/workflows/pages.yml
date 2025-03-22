@@ -13,15 +13,6 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Create .env file
-        run: |
-          echo "VITE_URL_API_DADATA=${{ secrets.VITE_URL_API_DADATA }}" >> .env
-          echo "VITE_KEY_API_DADATA=${{ secrets.VITE_KEY_API_DADATA }}" >> .env
-          echo "VITE_URL_API_OSM=${{ secrets.VITE_URL_API_OSM }}" >> .env
-          echo "VITE_URL_API_GEO=${{ secrets.VITE_URL_API_GEO }}" >> .env
-          echo "VITE_KEY_API_GEO=${{ secrets.VITE_KEY_API_GEO }}" >> .env
-          echo "VITE_URL_API_WEATHER=${{ secrets.VITE_URL_API_WEATHER }}" >> .env
-          echo "VITE_KEY_API_WEATHER=${{ secrets.VITE_KEY_API_WEATHER }}" >> .env
       - name: Install deps
         run: npm install
       - name: Build app
