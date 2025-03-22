@@ -21,6 +21,9 @@ const config = {
     },
     alias: {
       '@/*': 'src/*'
+    },
+    paths: {
+      base: process.env.VITE_MY_REPOSITORY || '/weather-widget'
     }
   }
 }
