@@ -9,14 +9,14 @@ const config = {
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: 'index.html',
+      fallback: undefined,
       precompress: false,
       strict: true
     }),
     files: {
       routes: 'src/app/routes',
       lib: 'src',
-      // appTemplate: 'index.html',
+      appTemplate: 'index.html',
       assets: 'public'
     },
     alias: {
