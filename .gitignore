@@ -11,7 +11,7 @@ node_modules
 Thumbs.db
 
 # Env
-.env
+.github/workflows/.env
 .env.*
 !.env.example
 !.env.test

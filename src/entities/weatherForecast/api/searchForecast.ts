@@ -4,7 +4,6 @@ import {translateCity} from '@/entities/city/@x/translateCity'
 import {i18n} from '@/shared/i18n'
 import type {Forecast} from '../model/Forecast'
 import {createParams} from '../model/createParams'
-import type {Cities} from '@/entities/city'
 
 interface ForecastFn {
   (city: string): Promise<Forecast>
