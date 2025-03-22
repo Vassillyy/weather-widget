@@ -23,7 +23,7 @@ const config = {
       '@/*': 'src/*'
     },
     paths: {
-      base: process.env.VITE_MY_REPOSITORY || '/weather-widget'
+      base: '/weather-widget'
     }
   }
 }
