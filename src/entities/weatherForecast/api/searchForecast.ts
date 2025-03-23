@@ -16,7 +16,7 @@ type Coors = {
 
 /** Получаем прогноз погоды по указанному городу */
 export const searchForecast: ForecastFn = async (city) => {
-  const apiUrl: string = 'http://api.weatherapi.com/v1/forecast.json'
+  const apiUrl: string = 'https://api.weatherapi.com/v1/forecast.json'
   const apiKey: string = '49d4f22317144367a50192730242909'
 
   const url: string = `${apiUrl}?${createParams(apiKey, city)}`

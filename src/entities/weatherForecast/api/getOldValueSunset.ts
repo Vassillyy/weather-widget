@@ -23,7 +23,7 @@ export const getOldValueSunset: OldValueSunsetFn = async ({
   date,
   timezone
 }) => {
-  const apiUrl: string = 'http://api.weatherapi.com/v1/history.json'
+  const apiUrl: string = 'https://api.weatherapi.com/v1/history.json'
   const apiKey: string = '49d4f22317144367a50192730242909'
 
   const params: URLSearchParams = new URLSearchParams({
