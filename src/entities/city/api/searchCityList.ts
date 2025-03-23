@@ -8,8 +8,9 @@ interface CityListFn {
 }
 
 export const searchCityList: CityListFn = async (value) => {
-  const apiUrl: string = import.meta.env.VITE_URL_API_DADATA
-  const apiKey: string = import.meta.env.VITE_KEY_API_DADATA
+  const apiUrl: string =
+    'http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
+  const apiKey: string = '32e3066a8245a56c955412eed1889c1fb80504f7'
 
   try {
     const response: AxiosResponse<Cities> = await axios.post(

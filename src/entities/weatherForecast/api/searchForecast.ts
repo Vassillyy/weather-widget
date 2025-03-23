@@ -16,8 +16,8 @@ type Coors = {
 
 /** Получаем прогноз погоды по указанному городу */
 export const searchForecast: ForecastFn = async (city) => {
-  const apiUrl: string = import.meta.env.VITE_URL_API_WEATHER + '/forecast.json'
-  const apiKey: string = import.meta.env.VITE_KEY_API_WEATHER
+  const apiUrl: string = 'http://api.weatherapi.com/v1/forecast.json'
+  const apiKey: string = '49d4f22317144367a50192730242909'
 
   const url: string = `${apiUrl}?${createParams(apiKey, city)}`
 

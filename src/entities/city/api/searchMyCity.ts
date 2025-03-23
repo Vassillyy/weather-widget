@@ -10,7 +10,7 @@ interface MyCityFn {
 type Coords = {latitude: number; longitude: number}
 
 export const searchMyCity: MyCityFn = async () => {
-  const apiUrl: string = import.meta.env.VITE_URL_API_OSM
+  const apiUrl: string = 'https://nominatim.openstreetmap.org/reverse'
 
   try {
     const position: Position = await new Promise((resolve, reject) => {

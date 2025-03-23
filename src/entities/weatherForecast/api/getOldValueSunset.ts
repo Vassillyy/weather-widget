@@ -23,8 +23,8 @@ export const getOldValueSunset: OldValueSunsetFn = async ({
   date,
   timezone
 }) => {
-  const apiUrl: string = import.meta.env.VITE_URL_API_WEATHER + '/history.json'
-  const apiKey: string = import.meta.env.VITE_KEY_API_WEATHER
+  const apiUrl: string = 'http://api.weatherapi.com/v1/history.json'
+  const apiKey: string = '49d4f22317144367a50192730242909'
 
   const params: URLSearchParams = new URLSearchParams({
     q: data.location.name,

@@ -8,8 +8,8 @@ interface CityTranslateFn {
 
 /** Переводим город на нужный нам язык */
 export const translateCity: CityTranslateFn = async (lat, lon, lang) => {
-  const apiUrl: string = import.meta.env.VITE_URL_API_GEO
-  const apiKey: string = import.meta.env.VITE_KEY_API_GEO
+  const apiUrl: string = 'https://api.geoapify.com/v1/geocode/reverse'
+  const apiKey: string = 'd27753f9ddea41d1abc33eaaa7aa7f2f'
 
   const params: URLSearchParams = new URLSearchParams({
     lat: lat.toString(),
