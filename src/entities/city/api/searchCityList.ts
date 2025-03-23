@@ -9,7 +9,7 @@ interface CityListFn {
 
 export const searchCityList: CityListFn = async (value) => {
   const apiUrl: string =
-    'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
+    'http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
   const apiKey: string = '32e3066a8245a56c955412eed1889c1fb80504f7'
 
   try {
