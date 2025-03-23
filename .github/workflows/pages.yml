@@ -17,6 +17,14 @@ jobs:
         run: npm install
       - name: Build app
         run: npm run build
+        env:
+          VITE_URL_API_DADATA: ${{secrets.VITE_URL_API_DADATA}}
+          VITE_KEY_API_DADATA: ${{secrets.VITE_KEY_API_DADATA}}
+          VITE_URL_API_OSM: ${{secrets.VITE_URL_API_OSM}}
+          VITE_URL_API_GEO: ${{secrets.VITE_URL_API_GEO}}
+          VITE_KEY_API_GEO: ${{secrets.VITE_KEY_API_GEO}}
+          VITE_URL_API_WEATHER: ${{secrets.VITE_URL_API_WEATHER}}
+          VITE_KEY_API_WEATHER: ${{secrets.VITE_KEY_API_WEATHER}}
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
