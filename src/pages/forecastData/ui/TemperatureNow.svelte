@@ -67,18 +67,22 @@
       alt="Погода"
     />
     <span class="temperature-now__temp-value">
-      {$tempUnit === '°C'
-        ? Math.round(dataForecast.current.temp_c) + ' ' + $tempUnit
-        : Math.round(dataForecast.current.temp_f) + ' ' + $tempUnit}
+      {#if dataForecast.current}
+        {$tempUnit === '°C'
+          ? Math.round(dataForecast.current.temp_c) + ' ' + $tempUnit
+          : Math.round(dataForecast.current.temp_f) + ' ' + $tempUnit}
+      {/if}
     </span>
     <div class="temperature-now__temp-feeling-block">
       <div class="temperature-now__temp-feeling-value">
         {i18n.get('feels_like')}
       </div>
       <div class="temperature-now__temp-feeling-value">
-        {$tempUnit === '°C'
-          ? Math.round(dataForecast.current.feelslike_c) + ' ' + $tempUnit
-          : Math.round(dataForecast.current.feelslike_f) + ' ' + $tempUnit}
+        {#if dataForecast.current}
+          {$tempUnit === '°C'
+            ? Math.round(dataForecast.current.feelslike_c) + ' ' + $tempUnit
+            : Math.round(dataForecast.current.feelslike_f) + ' ' + $tempUnit}
+        {/if}
       </div>
     </div>
   {:else if error}

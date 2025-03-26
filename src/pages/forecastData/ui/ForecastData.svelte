@@ -24,7 +24,7 @@
 
   /** Эффект для обновления состояния дня или ночи при обновлении данных погоды */
   $effect(() => {
-    if (dataForecast) isDay = !!dataForecast.current.is_day
+    if (dataForecast) isDay = !!dataForecast.current?.is_day
   })
 
   /**  Эффект для получения данных о прогнозе при изменении выбранного города */

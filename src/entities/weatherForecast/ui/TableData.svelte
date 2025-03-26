@@ -24,7 +24,7 @@
 
   /** Эффект для обновления направления ветра при обновлении данных погоды */
   $effect(() => {
-    if (dataForecast) {
+    if (dataForecast && dataForecast.current) {
       deg = dataForecast.current.wind_degree
       windDirection = directions[Math.floor((deg % 360) / 45) % 8]
     }
@@ -36,7 +36,7 @@
     <thead>
       <tr>
         <td class="table-data__item table-data__item_centered" colspan="2">
-          {dataForecast.current.condition.text}
+          {dataForecast.current?.condition?.text}
         </td>
       </tr>
     </thead>
@@ -44,37 +44,37 @@
       <tr>
         <td class="table-data__item">
           {i18n.get('amount_of_precipitation')}
-          {dataForecast.current.precip_mm}
+          {dataForecast.current?.precip_mm}
           {i18n.get('mm')}
         </td>
         <td class="table-data__item">
           {i18n.get('humidity')}
-          {dataForecast.current.humidity} %
+          {dataForecast.current?.humidity} %
         </td>
       </tr>
       <tr>
         <td class="table-data__item">
           {i18n.get('wind_speed')}
-          {((dataForecast.current.wind_kph * 10) / 36).toFixed(2)}
+          {(((dataForecast.current?.wind_kph || 1) * 10) / 36).toFixed(2)}
           {i18n.get('m_s')}
           {i18n.get('from')}
           {windDirection}
         </td>
         <td class="table-data__item">
           {i18n.get('gusts_of_wind')}
-          {((dataForecast.current.gust_kph * 10) / 36).toFixed(2)}
+          {(((dataForecast.current?.gust_kph || 1) * 10) / 36).toFixed(2)}
           {i18n.get('m_s')}
         </td>
       </tr>
       <tr>
         <td class="table-data__item">
           {i18n.get('atmospheric_pressure')}
-          {dataForecast.current.pressure_mb}
+          {dataForecast.current?.pressure_mb}
           {i18n.get('h_pa')}
         </td>
         <td class="table-data__item">
           {i18n.get('visibility')}
-          {dataForecast.current.vis_km}
+          {dataForecast.current?.vis_km}
           {i18n.get('km')}
         </td>
       </tr>

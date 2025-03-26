@@ -13,7 +13,7 @@
 </script>
 
 <div class="forecast-data-header">
-  {#if dataForecast}
+  {#if dataForecast && dataForecast.current}
     {@const [date, timeUpdate] = dataForecast.current.last_updated.split(' ')}
     {@const formattedDate = DateTime.fromISO(date)
       .setLocale(i18n.currentLanguage)
