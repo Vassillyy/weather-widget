@@ -12,10 +12,7 @@
   let {onclick, color = null, icon, text, ...rest}: Props = $props()
 </script>
 
-<svelte:element
-  this={'button'}
-  role="button"
-  tabindex="0"
+<button
   class="button"
   {onclick}
   class:button_icon={icon}
@@ -32,7 +29,7 @@
       {@render text()}
     </div>
   {/if}
-</svelte:element>
+</button>
 
 <style lang="sass">
   .button
