@@ -9,7 +9,7 @@
   </div>
   <div class="footer__item">
     <Icon name="telegram" />
-    @Infern00000
+    @Infernooo
   </div>
 </footer>
 
